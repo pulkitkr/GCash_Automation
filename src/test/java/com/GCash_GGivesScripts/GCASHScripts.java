@@ -67,7 +67,7 @@ public class GCASHScripts {
 		GCASHBusiness.gGivesPaymentSuccess();
 		ExtentReporter.jiraID = "PP-22";
 	}
-
+//Hello
 	@Test(priority = 7)
 	public void gCashLogoutPage() throws Exception {
 		GCASHBusiness.gCashLogout();
@@ -80,7 +80,7 @@ public class GCASHScripts {
 		GCASHBusiness.GsaveLogin(GSaveValidPhoneNumber , GSaveValidOTP);
 		ExtentReporter.jiraID = "PP-24";
 	}
-
+//Hello
 	@Test(priority = 9)
 	@Parameters({"amtPay"})
 	public void gSaveTransactionPage(String amtPay) throws Exception {
