@@ -42,7 +42,7 @@ public class GCASHScripts {
 		GCASHBusiness.homePage(userType);
 		ExtentReporter.jiraID = "PP-18";
 	}
-
+//Hello
 	@Test(priority = 3)
 	public void gGivesViewPage() throws Exception {
 		GCASHBusiness.ggivesViewAll();
