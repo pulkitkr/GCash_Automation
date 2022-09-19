@@ -10,11 +10,8 @@ import com.utility.JIRAResult_Update;
 import com.utility.Utilities;
 
 public class GCASHScripts {
-<<<<<<< HEAD
-       
-=======
-      //hello
->>>>>>> f22ecccb87daaeff7ff0aa06821c634ab0639df1
+
+  //Hellohello  
 	private com.business.gCASH.GCASHBusinessLogic GCASHBusiness;
 
 	@BeforeTest
@@ -42,7 +39,7 @@ public class GCASHScripts {
 		GCASHBusiness.homePage(userType);
 		ExtentReporter.jiraID = "PP-18";
 	}
-//Hello
+
 	@Test(priority = 3)
 	public void gGivesViewPage() throws Exception {
 		GCASHBusiness.ggivesViewAll();
@@ -55,7 +52,7 @@ public class GCASHScripts {
 		GCASHBusiness.ggivesDashboard(repaymentAMT);
 		ExtentReporter.jiraID = "PP-20";
 	}
-//Hello
+
 	@Test(priority = 5)
 	public void gGivesDuesPage() throws Exception {
 		GCASHBusiness.gGivesDues();
@@ -67,7 +64,7 @@ public class GCASHScripts {
 		GCASHBusiness.gGivesPaymentSuccess();
 		ExtentReporter.jiraID = "PP-22";
 	}
-//Hello
+
 	@Test(priority = 7)
 	public void gCashLogoutPage() throws Exception {
 		GCASHBusiness.gCashLogout();
@@ -80,7 +77,7 @@ public class GCASHScripts {
 		GCASHBusiness.GsaveLogin(GSaveValidPhoneNumber , GSaveValidOTP);
 		ExtentReporter.jiraID = "PP-24";
 	}
-//Hello
+
 	@Test(priority = 9)
 	@Parameters({"amtPay"})
 	public void gSaveTransactionPage(String amtPay) throws Exception {
