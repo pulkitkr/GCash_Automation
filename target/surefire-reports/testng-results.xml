@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="8" passed="8">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Android" duration-ms="582316" started-at="2022-09-03T17:17:08 IST" finished-at="2022-09-03T17:26:50 IST">
+    <groups>
+    </groups>
+    <test name="ML_Wallet" duration-ms="582316" started-at="2022-09-03T17:17:08 IST" finished-at="2022-09-03T17:26:50 IST">
+      <class name="com.MLWalletScripts.MLWalletScripts">
+        <test-method status="PASS" signature="Before()[pri:0, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="Before" is-config="true" duration-ms="12522" started-at="2022-09-03T17:17:18 IST" finished-at="2022-09-03T17:17:30 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Before -->
+        <test-method status="PASS" signature="Allowpopup(java.lang.String)[pri:0, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="Allowpopup" duration-ms="2190" started-at="2022-09-03T17:17:30 IST" finished-at="2022-09-03T17:17:32 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Guest]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Allowpopup -->
+        <test-method status="PASS" signature="Login(java.lang.String)[pri:1, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="Login" duration-ms="28102" started-at="2022-09-03T17:17:32 IST" finished-at="2022-09-03T17:18:01 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Guest]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method status="PASS" signature="sendMoney()[pri:2, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="sendMoney" duration-ms="16816" started-at="2022-09-03T17:18:01 IST" finished-at="2022-09-03T17:18:18 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sendMoney -->
+        <test-method status="PASS" signature="walletTowallet()[pri:3, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="walletTowallet" duration-ms="129343" started-at="2022-09-03T17:18:18 IST" finished-at="2022-09-03T17:20:27 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- walletTowallet -->
+        <test-method status="PASS" signature="kwartaPadala()[pri:4, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="kwartaPadala" duration-ms="127059" started-at="2022-09-03T17:20:27 IST" finished-at="2022-09-03T17:22:34 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- kwartaPadala -->
+        <test-method status="PASS" signature="withdrawMoney()[pri:5, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="withdrawMoney" duration-ms="62590" started-at="2022-09-03T17:22:35 IST" finished-at="2022-09-03T17:23:37 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- withdrawMoney -->
+        <test-method status="PASS" signature="receivedMoney()[pri:6, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="receivedMoney" duration-ms="47978" started-at="2022-09-03T17:23:38 IST" finished-at="2022-09-03T17:24:26 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- receivedMoney -->
+        <test-method status="PASS" signature="WalletNagativeScenario()[pri:7, instance:com.MLWalletScripts.MLWalletScripts@7a675056]" name="WalletNagativeScenario" duration-ms="143734" started-at="2022-09-03T17:24:26 IST" finished-at="2022-09-03T17:26:50 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- WalletNagativeScenario -->
+      </class> <!-- com.MLWalletScripts.MLWalletScripts -->
+    </test> <!-- ML_Wallet -->
+  </suite> <!-- Android -->
+</testng-results>

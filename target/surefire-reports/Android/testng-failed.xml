@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="1" guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [Android]">
+  <parameter name="testExecutionKey" value="TC-21175"/>
+  <parameter name="runModule" value="Suite"/>
+  <parameter name="userType" value="Guest"/>
+  <parameter name="runMode" value="Suites"/>
+  <parameter name="browserType" value="chrome"/>
+  <listeners>
+    <listener class-name="com.extent.ExtentReporter"/>
+  </listeners>
+  <test thread-count="1" verbose="0" name="ML_Wallet(failed)">
+    <classes>
+      <class name="com.MLWalletScripts.MLWalletScripts">
+        <methods>
+          <include name="WalletNagativeScenario"/>
+          <include name="Before"/>
+        </methods>
+      </class> <!-- com.MLWalletScripts.MLWalletScripts -->
+    </classes>
+  </test> <!-- ML_Wallet(failed) -->
+</suite> <!-- Failed suite [Android] -->
