@@ -67,7 +67,7 @@ public class GCASHScripts {
 		GCASHBusiness.gGivesPaymentSuccess();
 		ExtentReporter.jiraID = "PP-22";
 	}
-
+//Hello
 	@Test(priority = 7)
 	public void gCashLogoutPage() throws Exception {
 		GCASHBusiness.gCashLogout();
