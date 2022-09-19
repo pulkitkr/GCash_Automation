@@ -1,2 +1,3 @@
-com\MLWalletScripts\MLWalletScripts.class
-practiceAppium\SimpleScriptAppium.class
+com\GCash_GGivesScripts\TokenGCASH.class
+com\GCash_GGivesScripts\GCASHScripts.class
+com\GCash_GGivesScripts\JIRATest.class

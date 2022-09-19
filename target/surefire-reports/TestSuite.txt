@@ -1,4 +1,18 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 583.485 s - in TestSuite
+Tests run: 10, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 691.163 s <<< FAILURE! - in TestSuite
+gSaveTransactionPage(com.GCash_GGivesScripts.GCASHScripts)  Time elapsed: 110.599 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //android.widget.TextView[@text='My Savings Account'] (tried for 30 second(s) with 500 milliseconds interval)
+	at com.GCash_GGivesScripts.GCASHScripts.gSaveTransactionPage(GCASHScripts.java:83)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+An element could not be located on the page using the given search parameters.
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-077G3EM', ip: '172.31.99.238', os.name: 'Windows 10', os.arch: 'x86', os.version: '10.0', java.version: '1.8.0_202'
+Driver info: io.appium.java_client.android.AndroidDriver
+Capabilities {appActivity: gcash.module.splashscreen.m..., appPackage: com.globe.gcash.android.uat..., autoAcceptAlerts: true, automationName: uiautomator2, databaseEnabled: false, desired: {appActivity: gcash.module.splashscreen.m..., appPackage: com.globe.gcash.android.uat..., autoAcceptAlerts: true, automationName: uiautomator2, deviceName: Android, fullReset: false, newCommandTimeout: 300, noReset: false, platformName: android}, deviceApiLevel: 30, deviceManufacturer: samsung, deviceModel: SM-A507FN, deviceName: RZ8M90WEFMD, deviceScreenDensity: 420, deviceScreenSize: 1080x2340, deviceUDID: RZ8M90WEFMD, fullReset: false, javascriptEnabled: true, locationContextEnabled: false, networkConnectionEnabled: true, newCommandTimeout: 300, noReset: false, pixelRatio: 2.625, platform: LINUX, platformName: Android, platformVersion: 11, statBarHeight: 83, takesScreenshot: true, viewportRect: {height: 2048, left: 0, top: 83, width: 1080}, warnings: {}, webStorageEnabled: false}
+Session ID: 9aa45b57-6a35-497d-bb27-2ebb432a2373
+*** Element info: {Using=xpath, value=//android.widget.TextView[@text='My Savings Account']}
+	at com.GCash_GGivesScripts.GCASHScripts.gSaveTransactionPage(GCASHScripts.java:83)
+
