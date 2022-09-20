@@ -11,7 +11,6 @@ import com.utility.Utilities;
 
 public class GCASHScripts {
 
-//Hello
 	private com.business.gCASH.GCASHBusinessLogic GCASHBusiness;
 
 	@BeforeTest
