@@ -10,12 +10,7 @@ import com.utility.JIRAResult_Update;
 import com.utility.Utilities;
 
 public class GCASHScripts {
-<<<<<<< HEAD
 
-       
-=======
-  
->>>>>>> f8d9acdaee8eee74712146a998f9e339bd8d1bd0
 	private com.business.gCASH.GCASHBusinessLogic GCASHBusiness;
 
 	@BeforeTest
