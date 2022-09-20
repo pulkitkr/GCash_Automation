@@ -12,21 +12,21 @@ import com.utility.JIRAResult_Update;
 import com.utility.Utilities;
 
 public class GCASHScripts {
-//Hello
+
 	private com.business.gCASH.GCASHBusinessLogic GCASHBusiness;
-//Hello hello
+
 	@BeforeTest
 	public void Before() throws InterruptedException {
 		GCASHBusiness = new com.business.gCASH.GCASHBusinessLogic("gcash");
 	}
-	//hi
+
 	@Test(priority = 0)
 	@Parameters({ "userType" })
 	public void Allowpopup(String userType) throws Exception {
 		GCASHBusiness.GGivesAppLaunch(userType);
 		ExtentReporter.jiraID = "PP-9";
 	}
-//Hello
+
 	@Test(priority = 1)
 	@Parameters({ "InvalidphoneNumber", "validphonenumber", "GGivesLoginValidOTP" , "GGivesLoginInValidOTP"})
 	public void Login(String InvalidphoneNumber, String validphonenumber, String GGivesLoginValidOTP , String GGivesLoginInValidOTP) throws Exception {
