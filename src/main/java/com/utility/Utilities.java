@@ -50,8 +50,10 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 public class Utilities extends ExtentReporter {
@@ -2370,38 +2372,43 @@ public class Utilities extends ExtentReporter {
 		}
 	}
 	
-	public static Response TokenGCashAPI(Object[][] data, String url) {
-		   HashMap<String, String> req_body = new HashMap<>();
-		   req_body.put("grant_type", (String) data[0][0]);
-		   req_body.put("scope", (String) data[0][1]);
-		   req_body.put("client_secret", (String) data[0][2]);
-		   req_body.put("client_id", (String) data[0][3]);
-		   //Base URL
-		   RestAssured.baseURI=url;
-		   RequestSpecification httprequest=RestAssured.given();
-		   JSONObject Myrequestbody = new JSONObject();
-		   Myrequestbody.put("client_id", req_body.get("client_id"));
-		   Myrequestbody.put("client_secret", req_body.get("client_secret"));
-		   Myrequestbody.put("scope", req_body.get("scope"));
-		   Myrequestbody.put("grant_type", req_body.get("grant_type"));
-		   httprequest.header("Content-Type","application/json");
-		   httprequest.body(Myrequestbody.toJSONString());
-		   
-//		   System.out.println("Request Url -->" + url);
-		   logger.info("Request Url -->" + url);
-	       extent.extentLogger("Request Url", "Request Url -->" + url);
-		   
-//		   System.out.println("Request :"+Myrequestbody);
-		   logger.info("Request :"+Myrequestbody);
-	       extent.extentLogger("Request Body", "Request :"+Myrequestbody);
-		   
-		   Response response=httprequest.request(Method.POST);
-		   String Resp=response.getBody().asString();
-		   
-//		   System.out.println("Response Body= "+Resp);
-		   logger.info("Response Body= "+Resp);
-	       extent.extentLogger("Request Body", "Response Body= "+Resp);
-		   
-		   return response;
-		}
+	public static ValidatableResponse TokenGCashAPI(Object[][] data, String url) {
+		HashMap<String, String> req_body = new HashMap<>();
+		req_body.put("grant_type", (String) data[0][0]);
+		req_body.put("scope", (String) data[0][1]);
+		req_body.put("client_secret", (String) data[0][2]);
+		req_body.put("client_id", (String) data[0][3]);
+
+		JSONObject Myrequestbody = new JSONObject();
+
+		Myrequestbody.put("client_id", req_body.get("client_id"));
+		Myrequestbody.put("client_secret", req_body.get("client_secret"));
+		Myrequestbody.put("scope", req_body.get("scope"));
+		Myrequestbody.put("grant_type", req_body.get("grant_type"));
+
+
+
+		ValidatableResponse response =RestAssured
+				.given()
+				.baseUri(url)
+				.contentType(ContentType.JSON)
+				.body(Myrequestbody.toJSONString())
+				.when()
+				.post()
+				.then();
+
+//		System.out.println("Request Url -->" + url);
+//		System.out.println("Request :"+Myrequestbody);
+		
+		extent.extentLogger("Request Url", "Request Url -->" + url);
+		extent.extentLogger("Request", "Request :"+Myrequestbody);
+
+		String Resp=response.extract().body().asString();
+//		System.out.println("Response Body= "+Resp);
+		
+		extent.extentLogger("Response Body", Resp);
+		
+
+		return response;
+	}
 }

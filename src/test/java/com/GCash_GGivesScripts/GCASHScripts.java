@@ -1,5 +1,7 @@
 package com.GCash_GGivesScripts;
 
+import java.io.IOException;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -82,6 +84,19 @@ public class GCASHScripts {
 	public void gSaveTransactionPage(String amtPay) throws Exception {
 		GCASHBusiness.GsaveTransaction(amtPay);
 		ExtentReporter.jiraID = "PP-25";
+	}
+	
+	@Test(priority = 10)
+	@Parameters({"APIUrl"})
+	public void myntAPIValidation(String url) throws IOException {
+		GCASHBusiness.TokenGCash_200(url);
+		GCASHBusiness.InvalidClientId_TokenGCash(url);
+		GCASHBusiness.EmptyClientId_TokenGCash(url);
+		GCASHBusiness.EmptyClientSecret_TokenGCash(url);
+		GCASHBusiness.InvalidClientSecret_TokenGCash(url);
+		GCASHBusiness.InvalidGrantType_TokenGCash(url);
+		GCASHBusiness.EmptyGrantType_TokenGCash(url);
+		
 	}
 
 	@AfterTest

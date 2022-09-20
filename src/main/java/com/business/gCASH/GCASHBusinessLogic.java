@@ -1,5 +1,7 @@
 package com.business.gCASH;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,8 +11,10 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.Datasheet.GCashAPI_TestData_DataProvider;
 import com.android.GCASHPages.GCash_GSave;
 import com.android.GCASHPages.GGivesDues;
 import com.android.GCASHPages.GGivesHomePage;
@@ -25,10 +29,15 @@ import com.utility.LoggingUtils;
 import com.utility.Utilities;
 
 import ch.qos.logback.classic.Logger;
+import org.hamcrest.Matchers.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static org.hamcrest.MatcherAssert.assertThat;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 
 public class GCASHBusinessLogic extends Utilities {
 
@@ -794,4 +803,169 @@ public class GCASHBusinessLogic extends Utilities {
 			extent.extentLoggerFail("Log Out", "Failed to Log Out");
 		}
 	}
+	
+	GCashAPI_TestData_DataProvider dataProvider = new GCashAPI_TestData_DataProvider();
+    //static LoggingUtils logger = new LoggingUtils();
+
+    public void TokenGCash_200(String url) throws IOException {
+    	Object[][] data =  dataProvider.GCashapi("Gcashapi_ValidData");
+        ValidatableResponse response = TokenGCashAPI(data, url);
+
+        Assert.assertEquals(response.extract().statusCode(), 200);
+        int tokenGCash = response.extract().statusCode();
+        String GcashtokenCode = String.valueOf(tokenGCash);
+        extent.extentLoggerPass("TokenGCash_200", GcashtokenCode);
+
+        String Token =response.extract().body().jsonPath().get("token_type");
+        extent.extentLoggerPass("Token", Token);
+        Assert.assertEquals(Token, "bearer");
+
+        String access_token =response.extract().body().jsonPath().get("access_token");
+        extent.extentLoggerPass("access_Token", access_token);
+        Assert.assertTrue(access_token !=null);
+
+        int expires_in =response.extract().body().jsonPath().get("expires_in");
+//        System.out.println("expires in Code= "+expires_in);
+        
+        extent.extentLogger("expires_in", "expires in Code= "+expires_in);
+        Assert.assertEquals(expires_in, 7200);
+
+        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_200_scehma.json"));
+    }
+
+    public void InvalidClientId_TokenGCash(String url) throws IOException {
+
+    	Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidClientId");
+        ValidatableResponse response = TokenGCashAPI(data, url);
+
+        //Verify Status Code
+        Assert.assertEquals(response.extract().statusCode(), 400);
+        int invalidid = response.extract().statusCode();
+        String InvalidGcashtokenCode = String.valueOf(invalidid);
+        extent.extentLoggerPass("InvalidClientId_TokenGCash", InvalidGcashtokenCode);
+
+        //Verify Body
+        String Token =response.extract().body().jsonPath().get("error");
+        extent.extentLoggerPass("Token", Token);
+        Assert.assertEquals(Token, "invalid_client");
+
+        String access_token =response.extract().body().jsonPath().get("error_description");
+        extent.extentLoggerPass("access_Token", access_token);
+        Assert.assertEquals(access_token, "Invalid client authentication");
+
+        //Verify Schema
+        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
+
+    }
+
+   
+    public void EmptyClientId_TokenGCash(String url) throws IOException {
+    	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyClientId");
+        ValidatableResponse response = TokenGCashAPI(data, url);
+
+        //Verify Status Code
+        Assert.assertEquals(response.extract().statusCode(), 400);
+        int Emptyid = response.extract().statusCode();
+        String EmptyGcashtokenCode = String.valueOf(Emptyid);
+        extent.extentLoggerPass("EmptyClientId_TokenGCash", EmptyGcashtokenCode);
+
+        String Token =response.extract().body().jsonPath().get("error");
+        extent.extentLoggerPass("Token", Token);
+        Assert.assertEquals(Token, "invalid_client");
+
+        String access_token =response.extract().body().jsonPath().get("error_description");
+        extent.extentLoggerPass("access_Token", access_token);
+        Assert.assertEquals(access_token, "Invalid client authentication");
+
+        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
+    }
+
+    
+    public void EmptyClientSecret_TokenGCash(String url) throws IOException {
+    	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyClientSecret");
+        ValidatableResponse response = TokenGCashAPI(data, url);
+
+        //Verify Status Code
+        Assert.assertEquals(response.extract().statusCode(), 400);
+        int EmptySecretid = response.extract().statusCode();
+        String EmptySecretGcashtokenCode = String.valueOf(EmptySecretid);
+        extent.extentLoggerPass("EmptyClientSecret_TokenGCash", EmptySecretGcashtokenCode);
+
+        String Token =response.extract().body().jsonPath().get("error");
+        extent.extentLoggerPass("Token", Token);
+        Assert.assertEquals(Token, "invalid_client");
+
+        String access_token =response.extract().body().jsonPath().get("error_description");
+        extent.extentLoggerPass("access_Token", access_token);
+        Assert.assertEquals(access_token, "Invalid client authentication");
+        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
+
+    }
+
+  
+    public void InvalidClientSecret_TokenGCash(String url) throws IOException {
+
+    	 Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidClientSecret");
+         ValidatableResponse response = TokenGCashAPI(data, url);
+
+         //Verify Status Code
+         Assert.assertEquals(response.extract().statusCode(), 400);
+         int EmptyInvalidSecretid = response.extract().statusCode();
+         String EmptyInvalidSecretGcashtokenCode = String.valueOf(EmptyInvalidSecretid);
+         extent.extentLoggerPass("InvalidClientSecret_TokenGCash", EmptyInvalidSecretGcashtokenCode);
+
+         String Token =response.extract().body().jsonPath().get("error");
+         extent.extentLoggerPass("Token", Token);
+         Assert.assertEquals(Token, "invalid_client");
+
+         String access_token =response.extract().body().jsonPath().get("error_description");
+         extent.extentLoggerPass("access_Token", access_token);
+         Assert.assertEquals(access_token, "Invalid client authentication");
+         assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
+
+    }
+
+  
+    public void InvalidGrantType_TokenGCash(String url) throws IOException {
+    	Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidGrantType");
+        ValidatableResponse response = TokenGCashAPI(data, url);
+
+        //Verify Status Code
+        Assert.assertEquals(response.extract().statusCode(), 400);
+        int InvalidGrantid = response.extract().statusCode();
+        String InvalidGranttokenCode = String.valueOf(InvalidGrantid);
+        extent.extentLoggerPass("InvalidGrantType_TokenGCash", InvalidGranttokenCode);
+
+        String Token =response.extract().body().jsonPath().get("error");
+        extent.extentLoggerPass("Token", Token);
+        Assert.assertEquals(Token, "unsupported_grant_type");
+
+        String access_token =response.extract().body().jsonPath().get("error_description");
+        extent.extentLoggerPass("access_Token", access_token);
+        Assert.assertEquals(access_token, "Invalid grant_type");
+        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
+
+    }
+
+    
+    public void EmptyGrantType_TokenGCash(String url) throws IOException {
+
+    	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyGrantType");
+        ValidatableResponse response = TokenGCashAPI(data, url);
+
+        //Verify Status Code
+        Assert.assertEquals(response.extract().statusCode(), 400);
+        int EmptyGrantid = response.extract().statusCode();
+        String EmptyGranttokenCode = String.valueOf(EmptyGrantid);
+        extent.extentLoggerPass("EmptyGrantId_TokenGcash", EmptyGranttokenCode);
+       
+        
+        String Token =response.extract().body().jsonPath().get("error");
+        Assert.assertEquals(Token, "unsupported_grant_type");
+
+        String access_token =response.extract().body().jsonPath().get("error_description");
+        Assert.assertEquals(access_token, "Invalid grant_type");
+        extent.extentLoggerPass("access_Token", access_token);
+        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
+    }
 }
