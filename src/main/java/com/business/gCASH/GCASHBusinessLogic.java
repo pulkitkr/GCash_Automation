@@ -808,7 +808,7 @@ public class GCASHBusinessLogic extends Utilities {
     //static LoggingUtils logger = new LoggingUtils();
 
     public void TokenGCash_200(String url) throws IOException {
-    	extent.HeaderChildNode("API");
+    	extent.HeaderChildNode("API-1");
     	Object[][] data =  dataProvider.GCashapi("Gcashapi_ValidData");
         ValidatableResponse response = TokenGCashAPI(data, url);
 
@@ -829,13 +829,14 @@ public class GCASHBusinessLogic extends Utilities {
 //        System.out.println("expires in Code= "+expires_in);
         
         extent.extentLogger("expires_in", "expires in Code= "+expires_in);
-        Assert.assertEquals(expires_in, 7200);
+        Assert.assertEquals(expires_in, 200);
 
         assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_200_scehma.json"));
     }
 
     public void InvalidClientId_TokenGCash(String url) throws IOException {
 
+    	extent.HeaderChildNode("API-2");
     	Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidClientId");
         ValidatableResponse response = TokenGCashAPI(data, url);
 
@@ -861,6 +862,7 @@ public class GCASHBusinessLogic extends Utilities {
 
    
     public void EmptyClientId_TokenGCash(String url) throws IOException {
+    	extent.HeaderChildNode("API-3");
     	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyClientId");
         ValidatableResponse response = TokenGCashAPI(data, url);
 
@@ -883,6 +885,7 @@ public class GCASHBusinessLogic extends Utilities {
 
     
     public void EmptyClientSecret_TokenGCash(String url) throws IOException {
+    	extent.HeaderChildNode("API-4");
     	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyClientSecret");
         ValidatableResponse response = TokenGCashAPI(data, url);
 
@@ -905,7 +908,7 @@ public class GCASHBusinessLogic extends Utilities {
 
   
     public void InvalidClientSecret_TokenGCash(String url) throws IOException {
-
+    	extent.HeaderChildNode("API-5");
     	 Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidClientSecret");
          ValidatableResponse response = TokenGCashAPI(data, url);
 
@@ -928,6 +931,7 @@ public class GCASHBusinessLogic extends Utilities {
 
   
     public void InvalidGrantType_TokenGCash(String url) throws IOException {
+    	extent.HeaderChildNode("API-6");
     	Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidGrantType");
         ValidatableResponse response = TokenGCashAPI(data, url);
 
@@ -950,7 +954,7 @@ public class GCASHBusinessLogic extends Utilities {
 
     
     public void EmptyGrantType_TokenGCash(String url) throws IOException {
-
+    	extent.HeaderChildNode("API-7");
     	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyGrantType");
         ValidatableResponse response = TokenGCashAPI(data, url);
 
