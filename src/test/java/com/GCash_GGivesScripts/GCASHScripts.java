@@ -12,9 +12,9 @@ import com.utility.JIRAResult_Update;
 import com.utility.Utilities;
 
 public class GCASHScripts {
-//Hello hello
+//Hello
 	private com.business.gCASH.GCASHBusinessLogic GCASHBusiness;
-
+//Hello
 	@BeforeTest
 	public void Before() throws InterruptedException {
 		GCASHBusiness = new com.business.gCASH.GCASHBusinessLogic("gcash");
