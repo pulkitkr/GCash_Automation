@@ -12,7 +12,7 @@ import com.utility.JIRAResult_Update;
 import com.utility.Utilities;
 
 public class GCASHScripts {
-
+//Hello
 	private com.business.gCASH.GCASHBusinessLogic GCASHBusiness;
 
 	@BeforeTest
@@ -84,19 +84,6 @@ public class GCASHScripts {
 	public void gSaveTransactionPage(String amtPay) throws Exception {
 		GCASHBusiness.GsaveTransaction(amtPay);
 		ExtentReporter.jiraID = "PP-25";
-	}
-	
-	@Test(priority = 10)
-	@Parameters({"APIUrl"})
-	public void myntAPIValidation(String url) throws IOException {
-		GCASHBusiness.TokenGCash_200(url);
-		GCASHBusiness.InvalidClientId_TokenGCash(url);
-		GCASHBusiness.EmptyClientId_TokenGCash(url);
-		GCASHBusiness.EmptyClientSecret_TokenGCash(url);
-		GCASHBusiness.InvalidClientSecret_TokenGCash(url);
-		GCASHBusiness.InvalidGrantType_TokenGCash(url);
-		GCASHBusiness.EmptyGrantType_TokenGCash(url);
-		
 	}
 
 	@AfterTest

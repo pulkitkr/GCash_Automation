@@ -1,6 +1,4 @@
 package com.business.gCASH;
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -436,12 +434,9 @@ public class GCASHBusinessLogic extends Utilities {
 
 		suggestionTapMidScreen(GGivesViewAll.objGuideSuggestion);
 
-		loanAccountNo = getText(GGivesViewAll.objLoanAccountNo);
-		Assert.assertEquals(loanAccountNumber, loanAccountNo);
+		String getLoanAmtText = getText(GGivesViewAll.objGCashBal);
 
-		String getLoanAmtText = getText(GGivesViewAll.objLoanAmt);
-
-		getLoanAmtText = getLoanAmtText.substring(4);
+		getLoanAmtText = getLoanAmtText.substring(18);
 		String[] split = getLoanAmtText.split(",");
 		String balanceBeforeComma = split[0];
 		String afterComma = split[1];
@@ -494,11 +489,6 @@ public class GCASHBusinessLogic extends Utilities {
 			extent.extentLoggerPass("GGives Dues", "Navigated to GGives Dues Payment Page");
 		}
 
-		loanAccNo = getText(GGivesDues.objLoanAccNo);
-		Assert.assertEquals(loanAccountNo, loanAccNo);
-		logger.info("Loan Account No. " + loanAccNo);
-		extent.extentLoggerPass("Loan Account No", "Loan Account No. " + loanAccNo);
-
 		String availableGcashBalance = getText(GGivesDues.objAvailableGcashBal);
 		Assert.assertEquals(availableAmt, availableGcashBalance);
 		logger.info("GCash Avaiable Balance " + availableGcashBalance);
@@ -531,12 +521,11 @@ public class GCASHBusinessLogic extends Utilities {
 
 			String successfullPaidTet = getText(GGivesPaymentPage.objGGivesSuccessfulPaidText);
 			String successfullPaidForGGivesTitle = getText(GGivesPaymentPage.objPaidForGGivesTitle);
-			String loanAccNumber = getText(GGivesPaymentPage.objLoanAccNo);
-			Assert.assertEquals(loanAccNumber, loanAccNo);
+
 			logger.info(
-					successfullPaidTet + " " + successfullPaidForGGivesTitle + " Loan Account No. " + loanAccNumber);
+					successfullPaidTet + " " + successfullPaidForGGivesTitle);
 			extent.extentLogger("Success Msg",
-					successfullPaidTet + " " + successfullPaidForGGivesTitle + " Loan Account No. " + loanAccNumber);
+					successfullPaidTet + " " + successfullPaidForGGivesTitle);
 
 			String amountPaid = getText(GGivesPaymentPage.objAmountPaid);
 			Assert.assertEquals(amountPaid, youAreAboutToPay);
@@ -802,175 +791,5 @@ public class GCASHBusinessLogic extends Utilities {
 			logger.info("Failed to Log Out");
 			extent.extentLoggerFail("Log Out", "Failed to Log Out");
 		}
-	}
-	
-	GCashAPI_TestData_DataProvider dataProvider = new GCashAPI_TestData_DataProvider();
-    //static LoggingUtils logger = new LoggingUtils();
-
-    public void TokenGCash_200(String url) throws IOException {
-    	extent.HeaderChildNode("API-1");
-    	Object[][] data =  dataProvider.GCashapi("Gcashapi_ValidData");
-        ValidatableResponse response = TokenGCashAPI(data, url);
-
-        Assert.assertEquals(response.extract().statusCode(), 200);
-        int tokenGCash = response.extract().statusCode();
-        String GcashtokenCode = String.valueOf(tokenGCash);
-        extent.extentLoggerPass("TokenGCash_200", GcashtokenCode);
-
-        String Token =response.extract().body().jsonPath().get("token_type");
-        extent.extentLoggerPass("Token", Token);
-        Assert.assertEquals(Token, "bearer");
-
-        String access_token =response.extract().body().jsonPath().get("access_token");
-        extent.extentLoggerPass("access_Token", access_token);
-        Assert.assertTrue(access_token !=null);
-
-        int expires_in =response.extract().body().jsonPath().get("expires_in");
-//        System.out.println("expires in Code= "+expires_in);
-        
-        extent.extentLogger("expires_in", "expires in Code= "+expires_in);
-        Assert.assertEquals(expires_in, 200);
-
-        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_200_scehma.json"));
-    }
-
-    public void InvalidClientId_TokenGCash(String url) throws IOException {
-
-    	extent.HeaderChildNode("API-2");
-    	Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidClientId");
-        ValidatableResponse response = TokenGCashAPI(data, url);
-
-        //Verify Status Code
-        Assert.assertEquals(response.extract().statusCode(), 400);
-        int invalidid = response.extract().statusCode();
-        String InvalidGcashtokenCode = String.valueOf(invalidid);
-        extent.extentLoggerPass("InvalidClientId_TokenGCash", InvalidGcashtokenCode);
-
-        //Verify Body
-        String Token =response.extract().body().jsonPath().get("error");
-        extent.extentLoggerPass("Token", Token);
-        Assert.assertEquals(Token, "invalid_client");
-
-        String access_token =response.extract().body().jsonPath().get("error_description");
-        extent.extentLoggerPass("access_Token", access_token);
-        Assert.assertEquals(access_token, "Invalid client authentication");
-
-        //Verify Schema
-        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
-
-    }
-
-   
-    public void EmptyClientId_TokenGCash(String url) throws IOException {
-    	extent.HeaderChildNode("API-3");
-    	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyClientId");
-        ValidatableResponse response = TokenGCashAPI(data, url);
-
-        //Verify Status Code
-        Assert.assertEquals(response.extract().statusCode(), 400);
-        int Emptyid = response.extract().statusCode();
-        String EmptyGcashtokenCode = String.valueOf(Emptyid);
-        extent.extentLoggerPass("EmptyClientId_TokenGCash", EmptyGcashtokenCode);
-
-        String Token =response.extract().body().jsonPath().get("error");
-        extent.extentLoggerPass("Token", Token);
-        Assert.assertEquals(Token, "invalid_client");
-
-        String access_token =response.extract().body().jsonPath().get("error_description");
-        extent.extentLoggerPass("access_Token", access_token);
-        Assert.assertEquals(access_token, "Invalid client authentication");
-
-        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
-    }
-
-    
-    public void EmptyClientSecret_TokenGCash(String url) throws IOException {
-    	extent.HeaderChildNode("API-4");
-    	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyClientSecret");
-        ValidatableResponse response = TokenGCashAPI(data, url);
-
-        //Verify Status Code
-        Assert.assertEquals(response.extract().statusCode(), 400);
-        int EmptySecretid = response.extract().statusCode();
-        String EmptySecretGcashtokenCode = String.valueOf(EmptySecretid);
-        extent.extentLoggerPass("EmptyClientSecret_TokenGCash", EmptySecretGcashtokenCode);
-
-        String Token =response.extract().body().jsonPath().get("error");
-        extent.extentLoggerPass("Token", Token);
-        Assert.assertEquals(Token, "invalid_client");
-
-        String access_token =response.extract().body().jsonPath().get("error_description");
-        extent.extentLoggerPass("access_Token", access_token);
-        Assert.assertEquals(access_token, "Invalid client authentication");
-        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
-
-    }
-
-  
-    public void InvalidClientSecret_TokenGCash(String url) throws IOException {
-    	extent.HeaderChildNode("API-5");
-    	 Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidClientSecret");
-         ValidatableResponse response = TokenGCashAPI(data, url);
-
-         //Verify Status Code
-         Assert.assertEquals(response.extract().statusCode(), 400);
-         int EmptyInvalidSecretid = response.extract().statusCode();
-         String EmptyInvalidSecretGcashtokenCode = String.valueOf(EmptyInvalidSecretid);
-         extent.extentLoggerPass("InvalidClientSecret_TokenGCash", EmptyInvalidSecretGcashtokenCode);
-
-         String Token =response.extract().body().jsonPath().get("error");
-         extent.extentLoggerPass("Token", Token);
-         Assert.assertEquals(Token, "invalid_client");
-
-         String access_token =response.extract().body().jsonPath().get("error_description");
-         extent.extentLoggerPass("access_Token", access_token);
-         Assert.assertEquals(access_token, "Invalid client authentication");
-         assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
-
-    }
-
-  
-    public void InvalidGrantType_TokenGCash(String url) throws IOException {
-    	extent.HeaderChildNode("API-6");
-    	Object[][] data =  dataProvider.GCashapi("Gcashapi_InvalidGrantType");
-        ValidatableResponse response = TokenGCashAPI(data, url);
-
-        //Verify Status Code
-        Assert.assertEquals(response.extract().statusCode(), 400);
-        int InvalidGrantid = response.extract().statusCode();
-        String InvalidGranttokenCode = String.valueOf(InvalidGrantid);
-        extent.extentLoggerPass("InvalidGrantType_TokenGCash", InvalidGranttokenCode);
-
-        String Token =response.extract().body().jsonPath().get("error");
-        extent.extentLoggerPass("Token", Token);
-        Assert.assertEquals(Token, "unsupported_grant_type");
-
-        String access_token =response.extract().body().jsonPath().get("error_description");
-        extent.extentLoggerPass("access_Token", access_token);
-        Assert.assertEquals(access_token, "Invalid grant_type");
-        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
-
-    }
-
-    
-    public void EmptyGrantType_TokenGCash(String url) throws IOException {
-    	extent.HeaderChildNode("API-7");
-    	Object[][] data =  dataProvider.GCashapi("Gcashapi_EmptyGrantType");
-        ValidatableResponse response = TokenGCashAPI(data, url);
-
-        //Verify Status Code
-        Assert.assertEquals(response.extract().statusCode(), 400);
-        int EmptyGrantid = response.extract().statusCode();
-        String EmptyGranttokenCode = String.valueOf(EmptyGrantid);
-        extent.extentLoggerPass("EmptyGrantId_TokenGcash", EmptyGranttokenCode);
-       
-        
-        String Token =response.extract().body().jsonPath().get("error");
-        Assert.assertEquals(Token, "unsupported_grant_type");
-
-        String access_token =response.extract().body().jsonPath().get("error_description");
-        Assert.assertEquals(access_token, "Invalid grant_type");
-        extent.extentLoggerPass("access_Token", access_token);
-        assertThat(response.extract().body().asString(), JsonSchemaValidator.matchesJsonSchemaInClasspath("gcash_400_schema.json"));
-    }
+	}  
 }

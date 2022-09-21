@@ -82,4 +82,7 @@ public class GGivesViewAll {
 	//GCash Balance
 	public static By objGcashAvailableBalance = By.id("com.globe.gcash.android.uat.tokyo:id/gcash_balance");
 	
+	//GGives Balance
+	public static By objGCashBal = By.id("com.globe.gcash.android.uat.tokyo:id/gcash_balance");
+	
 }
