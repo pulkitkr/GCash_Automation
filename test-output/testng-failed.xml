@@ -20,9 +20,19 @@
     <classes>
       <class name="com.GCash_GGivesScripts.GCASHScripts">
         <methods>
-          <include name="gSaveTransactionPage" invocation-numbers="0"/>
+          <include name="gSaveTransactionPage"/>
           <include name="After"/>
+          <include name="gGivesViewPage"/>
+          <include name="gCashLogoutPage"/>
+          <include name="gSaveLoginPage"/>
+          <include name="Login"/>
+          <include name="gSaveConfirmPage"/>
+          <include name="gGivesPaymentPage"/>
           <include name="Before"/>
+          <include name="gGivesDuesPage"/>
+          <include name="gGivesHomePage"/>
+          <include name="Allowpopup"/>
+          <include name="gGivesDashboardPage"/>
         </methods>
       </class> <!-- com.GCash_GGivesScripts.GCASHScripts -->
     </classes>

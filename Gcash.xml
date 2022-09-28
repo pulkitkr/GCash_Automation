@@ -3,7 +3,7 @@
 <suite name="Android" parallel="false" thread-count="1">
 
 
-	<!-- --><parameter name="userType" value="SenderUser" />  
+	<parameter name="userType" value="SenderUser" />  
 	<parameter name="runModule" value="Suite" />
 	<parameter name="runMode" value="Suites" />
 

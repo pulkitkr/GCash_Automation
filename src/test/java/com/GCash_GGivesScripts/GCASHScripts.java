@@ -12,9 +12,9 @@ import com.utility.JIRAResult_Update;
 import com.utility.Utilities;
 
 public class GCASHScripts {
-//Hello hello
+
 	private com.business.gCASH.GCASHBusinessLogic GCASHBusiness;
-//hello
+
 	@BeforeTest
 	public void Before() throws InterruptedException {
 		GCASHBusiness = new com.business.gCASH.GCASHBusinessLogic("gcash");
@@ -26,7 +26,7 @@ public class GCASHScripts {
 		GCASHBusiness.GGivesAppLaunch(userType);
 		ExtentReporter.jiraID = "PP-9";
 	}
-//hello
+
 	@Test(priority = 1)
 	@Parameters({ "InvalidphoneNumber", "validphonenumber", "GGivesLoginValidOTP" , "GGivesLoginInValidOTP"})
 	public void Login(String InvalidphoneNumber, String validphonenumber, String GGivesLoginValidOTP , String GGivesLoginInValidOTP) throws Exception {
@@ -84,6 +84,12 @@ public class GCASHScripts {
 	public void gSaveTransactionPage(String amtPay) throws Exception {
 		GCASHBusiness.GsaveTransaction(amtPay);
 		ExtentReporter.jiraID = "PP-25";
+	}
+	
+	@Test(priority = 10)
+	public void gSaveConfirmPage() throws Exception {
+		GCASHBusiness.gSaveConfirmTranscation();
+		ExtentReporter.jiraID = "PP-60";
 	}
 
 	@AfterTest

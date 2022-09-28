@@ -21,7 +21,6 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
-import com.CleverTap.QOEMatrix;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -196,10 +195,12 @@ public class ExtentReporter implements ITestListener {
 			}
 			System.out.println("JIRA ID : "+jiraID);
 			try {
-				if(logfail != 0) {
-					Json.XrayJsonImport(jiraID, "FAILED");
-				}else {
-					Json.XrayJsonImport(jiraID, "PASSED");
+				if(!jiraID.equalsIgnoreCase("TC")) {
+					if(logfail != 0) {
+						Json.XrayJsonImport(jiraID, "FAILED");
+					}else {
+						Json.XrayJsonImport(jiraID, "PASSED");
+					}
 				}
 			} catch (InterruptedException | IOException e) {
 				e.printStackTrace();
@@ -217,14 +218,17 @@ public class ExtentReporter implements ITestListener {
 				moduleFail.add(result.getName()+","+"Fail");
 				totalFailedTest++;
 				try {
-			         if(logfail != 0) {
-				                Json.XrayJsonImport(jiraID, "FAILED");
-							}else {
-								Json.XrayJsonImport(jiraID, "PASSED");
-							}
-						} catch (InterruptedException | IOException e) {
+					if(!jiraID.equalsIgnoreCase("TC")) {
+				         if(logfail != 0) {
+					        Json.XrayJsonImport(jiraID, "FAILED");
+				         }else {
+							Json.XrayJsonImport(jiraID, "PASSED");
+						 }				
+					}
+
+				} catch (InterruptedException | IOException e) {
 							e.printStackTrace();
-						}
+				}
 //		mailBodyPart.add(result.getName()+","+ExcelUpdate.passCounter+","+ExcelUpdate.failCounter);
 			}
 		}
@@ -433,22 +437,6 @@ public class ExtentReporter implements ITestListener {
 		}
 	}
 	
-	public static void insertToExcel() {
-		System.out.println("Size : "+performaceDetails.size());
-		QOEMatrix.Count = true;
-		if (performaceDetails.size() > 0) {
-			for (int i = 0; i < performaceDetails.size(); i++) {
-				int row = QOEMatrix.getRowCount();
-				System.out.println(performaceDetails.get(i)+" == "+row);
-				String result[] = performaceDetails.get(i).toString().split(",");
-				QOEMatrix.InsertEventProperties((row+1), result[0], Integer.valueOf(result[1]), Integer.valueOf(result[2]), 
-						Double.parseDouble(result[3]), Double.parseDouble(result[4]),Double.parseDouble(result[5]),Double.parseDouble(result[6]),
-								Integer.valueOf(result[7]));
-			}
-			performaceDetails.clear();
-		} else {
-		}
-	}
 	
 	public static StringBuilder DeviceDetails() {
 		String deviceDetails = "Device Name - MarQ 2K Android TV Version - 9";

@@ -24,7 +24,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -38,7 +38,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Android" class="navigator-link">
-              <span class="suite-name border-failed">Android</span>
+              <span class="suite-name border-passed">Android</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -91,21 +91,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">10 methods, 1 failed,   9 passed</span>
-                  </li>
-                  <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-Android" class="hide-methods failed suite-Android"> (hide)</a> <!-- hide-methods failed suite-Android -->
-                      <a href="#" panel-name="suite-Android" class="show-methods failed suite-Android"> (show)</a> <!-- show-methods failed suite-Android -->
-                    </span>
-                    <div class="method-list-content failed suite-Android">
-                      <span>
-                        <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Android" title="com.GCash_GGivesScripts.GCASHScripts" class="method navigator-link" hash-for-method="gSaveTransactionPage(1.00)">gSaveTransactionPage(1.00)</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                    </div> <!-- method-list-content failed suite-Android -->
+                    <span class="method-stats">11 methods,   11 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -156,7 +142,17 @@
                       <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Android" title="com.GCash_GGivesScripts.GCASHScripts" class="method navigator-link" hash-for-method="gSaveConfirmPage">gSaveConfirmPage</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Android" title="com.GCash_GGivesScripts.GCASHScripts" class="method navigator-link" hash-for-method="gSaveLoginPage(9010000143, 000000)">gSaveLoginPage(9010000143, 000000)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Android" title="com.GCash_GGivesScripts.GCASHScripts" class="method navigator-link" hash-for-method="gSaveTransactionPage(1.00)">gSaveTransactionPage(1.00)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Android -->
@@ -171,66 +167,6 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Android" class="panel Android">
-          <div class="suite-Android-class-failed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">com.GCash_GGivesScripts.GCASHScripts</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="gSaveTransactionPage(1.00)">
-                  </a> <!-- gSaveTransactionPage(1.00) -->
-                  <span class="method-name">gSaveTransactionPage</span>
-                  <span class="parameters">(1.00)</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //android.widget.TextView[@text=&apos;My Savings Account&apos;] (tried for 30 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:95)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:272)
-	at com.utility.Utilities.findElement(Utilities.java:163)
-	at com.utility.Utilities.explicitWaitVisibility(Utilities.java:1472)
-	at com.business.gCASH.GCASHBusinessLogic.GsaveTransaction(GCASHBusinessLogic.java:686)
-	at com.GCash_GGivesScripts.GCASHScripts.gSaveTransactionPage(GCASHScripts.java:85)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-Caused by: org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters.
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
-System info: host: &apos;DESKTOP-077G3EM&apos;, ip: &apos;172.31.99.239&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;18.0.1&apos;
-Driver info: io.appium.java_client.android.AndroidDriver
-Capabilities {appActivity: gcash.module.splashscreen.m..., appPackage: com.globe.gcash.android.uat..., autoAcceptAlerts: true, automationName: uiautomator2, databaseEnabled: false, desired: {appActivity: gcash.module.splashscreen.m..., appPackage: com.globe.gcash.android.uat..., autoAcceptAlerts: true, automationName: uiautomator2, deviceName: Android, fullReset: false, newCommandTimeout: 300, noReset: false, platformName: android}, deviceApiLevel: 30, deviceManufacturer: samsung, deviceModel: SM-A507FN, deviceName: RZ8M90WEFMD, deviceScreenDensity: 420, deviceScreenSize: 1080x2340, deviceUDID: RZ8M90WEFMD, fullReset: false, javascriptEnabled: true, locationContextEnabled: false, networkConnectionEnabled: true, newCommandTimeout: 300, noReset: false, pixelRatio: 2.625, platform: LINUX, platformName: Android, platformVersion: 11, statBarHeight: 83, takesScreenshot: true, viewportRect: {height: 2048, left: 0, top: 83, width: 1080}, warnings: {}, webStorageEnabled: false}
-Session ID: 32b791a9-27cb-4c7d-87b3-487448ef03f1
-*** Element info: {Using=xpath, value=//android.widget.TextView[@text=&apos;My Savings Account&apos;]}
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:41)
-	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.execute(AndroidDriver.java:1)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:61)
-	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.findElement(AndroidDriver.java:1)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:428)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElementByXPath(DefaultGenericMobileDriver.java:151)
-	at io.appium.java_client.AppiumDriver.findElementByXPath(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.findElementByXPath(AndroidDriver.java:1)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:353)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:57)
-	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.findElement(AndroidDriver.java:1)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:249)
-	... 30 more
-... Removed 28 stack frames
-</div> <!-- stack-trace -->
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Android-class-failed -->
           <div class="suite-Android-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -299,10 +235,25 @@ Session ID: 32b791a9-27cb-4c7d-87b3-487448ef03f1
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
+                  <a name="gSaveConfirmPage">
+                  </a> <!-- gSaveConfirmPage -->
+                  <span class="method-name">gSaveConfirmPage</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
                   <a name="gSaveLoginPage(9010000143, 000000)">
                   </a> <!-- gSaveLoginPage(9010000143, 000000) -->
                   <span class="method-name">gSaveLoginPage</span>
                   <span class="parameters">(9010000143, 000000)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="gSaveTransactionPage(1.00)">
+                  </a> <!-- gSaveTransactionPage(1.00) -->
+                  <span class="method-name">gSaveTransactionPage</span>
+                  <span class="parameters">(1.00)</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -374,52 +325,56 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(10);
+data.addRows(11);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'gGivesDashboardPage')
 data.setCell(0, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(0, 3, 138005);
+data.setCell(0, 3, 105396);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'gSaveTransactionPage')
+data.setCell(1, 1, 'Login')
 data.setCell(1, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(1, 3, 112846);
+data.setCell(1, 3, 94543);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'Login')
+data.setCell(2, 1, 'gSaveTransactionPage')
 data.setCell(2, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(2, 3, 93120);
+data.setCell(2, 3, 86042);
 data.setCell(3, 0, 3)
 data.setCell(3, 1, 'gSaveLoginPage')
 data.setCell(3, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(3, 3, 89797);
+data.setCell(3, 3, 62736);
 data.setCell(4, 0, 4)
-data.setCell(4, 1, 'gGivesHomePage')
+data.setCell(4, 1, 'gSaveConfirmPage')
 data.setCell(4, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(4, 3, 73799);
+data.setCell(4, 3, 50634);
 data.setCell(5, 0, 5)
-data.setCell(5, 1, 'Allowpopup')
+data.setCell(5, 1, 'gGivesHomePage')
 data.setCell(5, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(5, 3, 8814);
+data.setCell(5, 3, 43508);
 data.setCell(6, 0, 6)
-data.setCell(6, 1, 'gCashLogoutPage')
+data.setCell(6, 1, 'Allowpopup')
 data.setCell(6, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(6, 3, 5237);
+data.setCell(6, 3, 8071);
 data.setCell(7, 0, 7)
-data.setCell(7, 1, 'gGivesViewPage')
+data.setCell(7, 1, 'gCashLogoutPage')
 data.setCell(7, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(7, 3, 3870);
+data.setCell(7, 3, 5494);
 data.setCell(8, 0, 8)
-data.setCell(8, 1, 'gGivesPaymentPage')
+data.setCell(8, 1, 'gGivesViewPage')
 data.setCell(8, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(8, 3, 3205);
+data.setCell(8, 3, 4316);
 data.setCell(9, 0, 9)
-data.setCell(9, 1, 'gGivesDuesPage')
+data.setCell(9, 1, 'gGivesPaymentPage')
 data.setCell(9, 2, 'com.GCash_GGivesScripts.GCASHScripts')
-data.setCell(9, 3, 1168);
+data.setCell(9, 3, 1004);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'gGivesDuesPage')
+data.setCell(10, 2, 'com.GCash_GGivesScripts.GCASHScripts')
+data.setCell(10, 3, 485);
 window.suiteTableData['Android']= { tableData: data, tableDiv: 'times-div-Android'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 8 minutes</span>
+              <span class="suite-total-time">Total running time: 7 minutes</span>
               <div id="times-div-Android">
               </div> <!-- times-div-Android -->
             </div> <!-- times-div -->
@@ -452,49 +407,51 @@ return data;
               </div> <!-- configuration-test before -->
               <div class="test-method">
                 <span class="method-name">Allowpopup(SenderUser)</span>
-                <span class="method-start">22691 ms</span>
+                <span class="method-start">18206 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">Login(9999999999, 9664087954, 000000, 000001)</span>
-                <span class="method-start">42924 ms</span>
+                <span class="method-start">32954 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">gGivesHomePage(SenderUser)</span>
-                <span class="method-start">144401 ms</span>
+                <span class="method-start">136052 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">gGivesViewPage</span>
-                <span class="method-start">224062 ms</span>
+                <span class="method-start">185167 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">gGivesDashboardPage(1.00)</span>
-                <span class="method-start">233483 ms</span>
+                <span class="method-start">197226 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">gGivesDuesPage</span>
-                <span class="method-start">379094 ms</span>
+                <span class="method-start">308308 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">gGivesPaymentPage</span>
-                <span class="method-start">386058 ms</span>
+                <span class="method-start">314234 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">gCashLogoutPage</span>
-                <span class="method-start">397531 ms</span>
+                <span class="method-start">320739 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">gSaveLoginPage(9010000143, 000000)</span>
-                <span class="method-start">410685 ms</span>
+                <span class="method-start">332112 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
                 <span class="method-name">gSaveTransactionPage(1.00)</span>
-                <span class="method-start">506887 ms</span>
+                <span class="method-start">404054 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">gSaveConfirmPage</span>
+                <span class="method-start">497999 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <span class="method-name">After</span>
-                <span class="method-start">624950 ms</span>
+                <span class="method-start">554602 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

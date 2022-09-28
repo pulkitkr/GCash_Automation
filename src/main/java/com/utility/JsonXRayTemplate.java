@@ -13,15 +13,15 @@ public class JsonXRayTemplate  {
 //		String testExecutionKey = "TES-125";
 		//String testPlanKey = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("testPlanKey");
 //		String env = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("Env");
-//		String env = "prod";
+		String env = "prod";
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").format(new Date());
 //		System.out.println(testExecutionKey);
 		
-//		if(env.contentEquals("prod")) {
-//			env = "Production";
-//		}else if(env.contentEquals("stage")) {
-//			env = "Staging";
-//		}
+		if(env.contentEquals("prod")) {
+			env = "Production";
+		}else if(env.contentEquals("stage")) {
+			env = "Staging";
+		}
 		String temp1 = "{\r\n" + 
 				"    \"testExecutionKey\" : \""+testExecutionKey+"\", \r\n" + 
 				"    \"info\" : {\r\n" + 

@@ -1,4 +1,5 @@
 package com.business.gCASH;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,84 +59,17 @@ public class GCASHBusinessLogic extends Utilities {
 	boolean launch = "" != null;
 	/** Retry Count */
 	private int retryCount;
-	Mixpanel mixpanel = new Mixpanel();
 	ExtentReporter extent = new ExtentReporter();
 
 	/** The Constant logger. */
 
 	static LoggingUtils logger = new LoggingUtils();
 
-	String language = "abcdefghijklmnopqrstuvwxyz";
-
 	/** The Android driver. */
 	public AndroidDriver<AndroidElement> androidDriver;
 
 	/** The Android driver. */
 	public IOSDriver<WebElement> iOSDriver;
-
-	static String code = "";
-	String asset_SubType = "";
-	String assetType = "";
-	Set<String> hash_Set = new HashSet<String>();
-	String viewAllTrayname = "";
-	@SuppressWarnings("unused")
-	private String LacationBasedLanguge;
-
-	public String titleLanguage = "";
-
-	List<String> LocationLanguage = new ArrayList<String>();
-
-	List<String> DefaultLanguage = new ArrayList<String>();
-
-	List<String> SelectedCONTENTLanguageInWelcomscreen = new ArrayList<String>();
-
-	List<String> SelectedCONTENTLanguageInHamburgerMenu = new ArrayList<String>();
-
-	Response resp;
-
-	ArrayList<String> MastheadTitleApi = new ArrayList<String>();
-	public String onboardingTraytitle = "";
-	public String onboardingPremiumContenttitle = "";
-
-	public static boolean relaunchFlag = false;
-	public static boolean appliTools = false;
-
-	public static boolean PopUp = false;
-
-	private static String IP = "-s 192.168.0.89:5555";
-
-	public String title = "";
-
-	public int getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(int timeout) {
-		this.timeout = timeout;
-	}
-
-	public int getRetryCount() {
-		return retryCount;
-	}
-
-	public void setRetryCount(int retryCount) {
-		this.retryCount = retryCount;
-	}
-
-	public String carouselTitle = "";
-	public String carouselDescription = "";
-	public String trayTitle = "";
-
-	public String contentName = "";
-
-	public String titleDescription = "";
-
-	String userType = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("userType");
-	String parentpasswordNonSub = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("NonsubscribedPassword");
-
-	String parentpasswordSub = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest()
-			.getParameter("SubscribedPassword");
 
 	/**
 	 * Initiate Property File.
@@ -167,44 +101,25 @@ public class GCASHBusinessLogic extends Utilities {
 		if (verifyElementPresent(GGivesLoginPage.objRequestPermissionPopup, "Request Permission Popup")) {
 			click(GGivesLoginPage.objRequestPermissionOkBtn, "Ok Button");
 
-			if (verifyElementPresent(GGivesLoginPage.objPicturePopup, "GCash Picture Popup")) {
-				click(GGivesLoginPage.objPictureDontAllowBtn, "Don't Allow Button");
-			} else {
-				logger.info("No Picture allow Popup is displayed");
-				extent.extentLoggerPass("Popup", "No Picture allow Popup is displayed");
-			}
+			verifyElementPresent(GGivesLoginPage.objPicturePopup, "GCash Picture Popup");
+			click(GGivesLoginPage.objPictureDontAllowBtn, "Don't Allow Button");
 
-			if (verifyElementPresent(GGivesLoginPage.objLocationPopup, "GCash Location access Popup")) {
-				click(GGivesLoginPage.objLocationDontAllowBtn, "Don't Allow Button");
-			} else {
-				logger.info("No location allow Popup is displayed");
-				extent.extentLoggerPass("Popup", "No location allow Popup is displayed");
-			}
+			verifyElementPresent(GGivesLoginPage.objLocationPopup, "GCash Location access Popup");
+			click(GGivesLoginPage.objLocationDontAllowBtn, "Don't Allow Button");
 
-			if (verifyElementPresent(GGivesLoginPage.objContactPopup, "GCash contact access Popup")) {
-				click(GGivesLoginPage.objContactDontAllowBtn, "Don't Allow Button");
-			} else {
-				logger.info("No contact allow Popup is displayed");
-				extent.extentLoggerPass("Popup", "No contact allow Popup is displayed");
-			}
+			verifyElementPresent(GGivesLoginPage.objContactPopup, "GCash contact access Popup");
+			click(GGivesLoginPage.objContactDontAllowBtn, "Don't Allow Button");
 
-			if (verifyElementPresent(GGivesLoginPage.objPhotoPopup, "GCash Photo media access Popup")) {
-				click(GGivesLoginPage.objPhotoDontAllowBtn, "Don't Allow Button");
-			} else {
-				logger.info("No photo media allow Popup is displayed");
-				extent.extentLoggerPass("Popup", "No photo media allow Popup is displayed");
-			}
+			verifyElementPresent(GGivesLoginPage.objPhotoPopup, "GCash Photo media access Popup");
+			click(GGivesLoginPage.objPhotoDontAllowBtn, "Don't Allow Button");
 
-			if (verifyElementPresent(GGivesLoginPage.objWelcomePageVerify, "Welcome to GCash Page")) {
-				logger.info("Navigated to Welcome to GCash Page");
-				extent.extentLoggerPass("Welcome Page", "Navigated to Welcome to GCash Page");
-			} else {
-				logger.info("Failed to Navigate to Welcome to GCash Page");
-				extent.extentLoggerFail("Welcome Page", "Failed to Navigate to Welcome to GCash Page");
-			}
-		} else {
+			verifyElementPresent(GGivesLoginPage.objWelcomePageVerify, "Welcome to GCash Page");
 			logger.info("Navigated to Welcome to GCash Page");
 			extent.extentLoggerPass("Welcome Page", "Navigated to Welcome to GCash Page");
+
+		} else {
+			logger.info("Navigated to Welcome to GCash Page");
+			extent.extentLogger("Welcome Page", "Navigated to Welcome to GCash Page");
 		}
 	}
 
@@ -214,67 +129,62 @@ public class GCASHBusinessLogic extends Utilities {
 	 * @param vailidNo
 	 * @throws Exception
 	 */
-	public void loginToGCash(String InvalidMobileNo, String validNo , String validOTP , String invalidOTP) throws Exception {
+	public void loginToGCash(String InvalidMobileNo, String validNo, String validOTP, String invalidOTP)
+			throws Exception {
 		extent.HeaderChildNode("Login");
-		String welcometoGCashPage = getText(GGivesLoginPage.objWelcomePageVerify);
-		if (verifyElementPresent(GGivesLoginPage.objWelcomePageVerify, welcometoGCashPage)) {
+
+		if (verifyElementDisplayed(GGivesLoginPage.objWelcomePageVerify)) {
+			String welcometoGCashPage = getText(GGivesLoginPage.objWelcomePageVerify);
 			Assert.assertEquals("Welcome to GCash", welcometoGCashPage);
 			click(GGivesLoginPage.objLoginBtn, "Login Button");
 			logger.info("Navigated to GCash  Login Page");
 			extent.extentLoggerPass("Login Page", "Navigated to GCash  Login Page");
-		} else {
-			logger.info("Failed to Navigate to GCash  Login Page");
-			extent.extentLoggerFail("Welcome Page", "Failed to Navigate to GCash  Login Page");
-		}
 
-		if (verifyElementDisplayed(GGivesLoginPage.objGCashLogo)) {
-			type(GGivesLoginPage.objMobileNumberField, InvalidMobileNo, "Mobile Number text Field");
-			click(GGivesLoginPage.objNextBtn, "Next Button");
+			if (verifyElementDisplayed(GGivesLoginPage.objGCashLogo)) {
+				type(GGivesLoginPage.objMobileNumberField, InvalidMobileNo, "Mobile Number text Field");
+				click(GGivesLoginPage.objNextBtn, "Next Button");
 
-			if (verifyElementDisplayed(GGivesLoginPage.objWrongPopup)) {
-				int wrongCount = 1;
-				for (int i = 0; i < wrongCount; i++) {
-					click(GGivesLoginPage.objLaterBtns, "Later Button");
-					click(GGivesLoginPage.objNextBtn, "Next Button");
-					if (verifyElementDisplayed(GGivesLoginPage.objWrongPopup)) {
-						wrongCount++;
-					} else {
-						break;
+				if (verifyElementDisplayed(GGivesLoginPage.objWrongPopup)) {
+					int wrongCount = 1;
+					for (int i = 0; i < wrongCount; i++) {
+						click(GGivesLoginPage.objLaterBtns, "Later Button");
+						click(GGivesLoginPage.objNextBtn, "Next Button");
+						if (verifyElementDisplayed(GGivesLoginPage.objWrongPopup)) {
+							wrongCount++;
+						} else {
+							break;
+						}
 					}
 				}
-			}
 
-			logger.info("Navigated to OTP Authentication Page");
-			extent.extentLoggerPass("OTP Authentication Page", "Navigated to GCash OTP Authentication Page");
-		} else {
-			logger.info("Failed to Navigate to OTP Authentication Page");
-			extent.extentLoggerFail("OTP Authentication Page", "Failed to Navigate to GCash OTP Authentication Page");
-		}
-		explicitWaitVisibility(GGivesLoginPage.objAuthenticationPageVerify, 20);
-		String authenticationPage = getText(GGivesLoginPage.objAuthenticationPageVerify);
-		if (verifyElementPresent(GGivesLoginPage.objAuthenticationPageVerify, authenticationPage + " Page")) {
+				logger.info("Navigated to OTP Authentication Page");
+				extent.extentLoggerPass("OTP Authentication Page", "Navigated to GCash OTP Authentication Page");
+			} else {
+				logger.info("Failed to Navigate to OTP Authentication Page");
+				extent.extentLoggerFail("OTP Authentication Page",
+						"Failed to Navigate to GCash OTP Authentication Page");
+			}
+			explicitWaitVisibility(GGivesLoginPage.objAuthenticationPageVerify, 20);
+			String authenticationPage = getText(GGivesLoginPage.objAuthenticationPageVerify);
+			verifyElementPresent(GGivesLoginPage.objAuthenticationPageVerify, authenticationPage + " Page");
 			Assert.assertEquals("Authentication", authenticationPage);
 			type(GGivesLoginPage.objOTPField, validOTP, "OTP Field");
 			click(GGivesLoginPage.objSubmitBtn, "Submit Button");
-		}
 
-		if (verifyElementPresent(GGivesLoginPage.objRequestAlertPermissionPopup, "Request permission Popup")) {
-			click(GGivesLoginPage.objAlertOkBtn, "OK Button");
-			if (verifyElementPresent(GGivesLoginPage.objLocationPopup, "GCash Location access Popup")) {
+			if (verifyElementPresent(GGivesLoginPage.objRequestAlertPermissionPopup, "Request permission Popup")) {
+				click(GGivesLoginPage.objAlertOkBtn, "OK Button");
+				verifyElementPresent(GGivesLoginPage.objLocationPopup, "GCash Location access Popup");
 				click(GGivesLoginPage.objRequestLocationDontAllowBtn, "Don't Allow Button");
-			} else {
-				logger.info("No location allow Popup is displayed");
-				extent.extentLoggerPass("Popup", "No location allow Popup is displayed");
-			}
-			logger.info("Navigated to MPIN page");
-			extent.extentLoggerPass("MPIN Page", "Navigated to MPIN page");
-		} else {
-			logger.info("No popup is displayed");
-			extent.extentLoggerPass("Popup", "No popup is displayed");
-		}
 
-		String MPINPage = getText(GGivesLoginPage.objMpinPageVerify);
-		if (verifyElementPresent(GGivesLoginPage.objMpinPageVerify, MPINPage + " Page")) {
+				logger.info("Navigated to MPIN page");
+				extent.extentLoggerPass("MPIN Page", "Navigated to MPIN page");
+			} else {
+				logger.info("No popup is displayed");
+				extent.extentLoggerPass("Popup", "No popup is displayed");
+			}
+
+			String MPINPage = getText(GGivesLoginPage.objMpinPageVerify);
+			verifyElementPresent(GGivesLoginPage.objMpinPageVerify, MPINPage + " Page");
 			Assert.assertEquals("Enter your MPIN", MPINPage);
 			click(GGivesLoginPage.objOneBtn, "1");
 			click(GGivesLoginPage.objTwoBtn, "2");
@@ -284,10 +194,12 @@ public class GCASHBusinessLogic extends Utilities {
 			if (verifyElementDisplayed(GGivesLoginPage.objMPINPopup)) {
 				click(GGivesLoginPage.objLaterBtn, "Later Button");
 				click(GGivesLoginPage.objChangeNumber, "Change Number");
+
 				verifyElementPresent(GGivesLoginPage.objOopsPopup, "Oops! popup");
 				click(GGivesLoginPage.objYesBtn, "Yes Button");
 				logger.info("Navigated to Enter Mobile Number Page");
 				extent.extentLoggerPass("Mobile Number Page", "Navigated to Enter Mobile Number Page");
+
 			} else if (verifyElementPresent(GGivesLoginPage.objMpinpopupVerify, "Mpin Incorrect popup")) {
 				click(GGivesLoginPage.objMpinpopupOKBtn, "OK Button");
 				click(GGivesLoginPage.objChangeNumber, "Change Number");
@@ -299,30 +211,25 @@ public class GCASHBusinessLogic extends Utilities {
 				logger.info("Failed to Navigate to Enter Mobile Number Page");
 				extent.extentLogger("Mobile Number Page", "Failed to Navigate to Enter Mobile Number Page");
 			}
-		}
 
-		if (verifyElementDisplayed(GGivesLoginPage.objGCashLogo)) {
+			verifyElementDisplayed(GGivesLoginPage.objGCashLogo);
 			type(GGivesLoginPage.objMobileNumberField, validNo, "Mobile Number text Field");
 
 			click(GGivesLoginPage.objNextBtn, "Next Button");
 			logger.info("Navigated to OTP Authentication Page");
 			extent.extentLoggerPass("OTP Authentication Page", "Navigated to GCash OTP Authentication Page");
-		} else {
-			logger.info("Failed to Navigate to OTP Authentication Page");
-			extent.extentLoggerFail("OTP Authentication Page", "Failed to Navigate to GCash OTP Authentication Page");
-		}
 
-		explicitWaitVisibility(GGivesLoginPage.objAuthenticationPageVerify, 20);
-		if (verifyElementPresent(GGivesLoginPage.objAuthenticationPageVerify, "OTP Authentication Page")) {
+			explicitWaitVisibility(GGivesLoginPage.objAuthenticationPageVerify, 20);
+			verifyElementPresent(GGivesLoginPage.objAuthenticationPageVerify, "OTP Authentication Page");
 			type(GGivesLoginPage.objOTPField, invalidOTP, "OTP Field");
 			click(GGivesLoginPage.objSubmitBtn, "Submit Button");
 
 			if (verifyElementPresent(GGivesLoginPage.objInvalidPopupVerify, "Invalid Authentication Code Popup")) {
 				click(GGivesLoginPage.objOKBtn, "OK Button");
 				androidClearText(GGivesLoginPage.objOTPField, "OTP Field");
-				waitTime(5000);
+				waitTime(3000);
 				type(GGivesLoginPage.objOTPField, validOTP, "OTP Field");
-				waitTime(5000);
+				waitTime(3000);
 				click(GGivesLoginPage.objSubmitBtn, "Submit Button");
 				logger.info("Navigated to MPIN Page");
 				extent.extentLoggerPass("MPIN Page", "Navigated to MPIN Page");
@@ -330,28 +237,28 @@ public class GCASHBusinessLogic extends Utilities {
 				logger.info("Failed to Navigate to MPIN Page");
 				extent.extentLogger("MPIN Page", "Failed to Navigate to MPIN Page");
 			}
-		}
 
-		if (verifyElementPresent(GGivesLoginPage.objMpinPageVerify, MPINPage + " Page")) {
-			Assert.assertEquals("Enter your MPIN", MPINPage);
-			click(GGivesLoginPage.objOneBtn, "1");
-			click(GGivesLoginPage.objTwoBtn, "2");
-			click(GGivesLoginPage.objOneBtn, "1");
-			click(GGivesLoginPage.objThreeBtn, "3");
-
-			explicitWaitVisibility(GGivesLoginPage.objMpinpopupVerify, 20);
-			if (verifyElementPresent(GGivesLoginPage.objMpinpopupVerify, "Mpin Incorrect popup")) {
-				click(GGivesLoginPage.objMpinpopupOKBtn, "OK Button");
+			if (verifyElementPresent(GGivesLoginPage.objMpinPageVerify, MPINPage + " Page")) {
+				Assert.assertEquals("Enter your MPIN", MPINPage);
 				click(GGivesLoginPage.objOneBtn, "1");
 				click(GGivesLoginPage.objTwoBtn, "2");
 				click(GGivesLoginPage.objOneBtn, "1");
-				click(GGivesLoginPage.objTwoBtn, "2");
-				logger.info("Navigated to Home Page");
-				extent.extentLoggerPass("HomePage", "Navigated to Home Page");
+				click(GGivesLoginPage.objThreeBtn, "3");
+
+				explicitWaitVisibility(GGivesLoginPage.objMpinpopupVerify, 20);
+				if (verifyElementPresent(GGivesLoginPage.objMpinpopupVerify, "Mpin Incorrect popup")) {
+					click(GGivesLoginPage.objMpinpopupOKBtn, "OK Button");
+					click(GGivesLoginPage.objOneBtn, "1");
+					click(GGivesLoginPage.objTwoBtn, "2");
+					click(GGivesLoginPage.objOneBtn, "1");
+					click(GGivesLoginPage.objTwoBtn, "2");
+					logger.info("Navigated to Home Page");
+					extent.extentLoggerPass("HomePage", "Navigated to Home Page");
+				} else {
+					logger.info("Failed to navigate to welcome page");
+					extent.extentLoggerFail("Welcome Page", "Failed to navigate to welcome page");
+				}
 			}
-		} else {
-			logger.info("Failed to Navigate to Home Page");
-			extent.extentLoggerPass("HomePage", "Failed to Navigate to Home Page");
 		}
 	}
 
@@ -378,12 +285,11 @@ public class GCASHBusinessLogic extends Utilities {
 				extent.extentLoggerPass("View All", "Navigated to View All Page");
 			} else {
 				logger.info("Failed to Navigate to Vew All Page");
-				extent.extentLoggerPass("View All", "Failed to Navigate to View All Page");
+				extent.extentLogger("View All", "Failed to Navigate to View All Page");
 			}
 		}
 	}
 
-	
 	/**
 	 * @GGivesViewAll methods
 	 * @throws Exception
@@ -391,15 +297,20 @@ public class GCASHBusinessLogic extends Utilities {
 	public void ggivesViewAll() throws Exception {
 		extent.HeaderChildNode("View All");
 
-		String viewAllTextHeader = getText(GGivesViewAll.objGgivesViewAll);
-		Assert.assertEquals(viewAllTextHeader, "View All");
+		if (verifyElementDisplayed(GGivesViewAll.objGgivesViewAll)) {
+			String viewAllTextHeader = getText(GGivesViewAll.objGgivesViewAll);
+			Assert.assertEquals(viewAllTextHeader, "View All");
 
-		Swipe("up", 1);
-		verifyElementPresentAndClick(GGivesViewAll.objGrowGGivesModule, "GGives module");
-		logger.info("Navigated to GGives Page");
-		extent.extentLoggerPass("GGives", "Navigated to GGives Page");
+			Swipe("up", 1);
+			verifyElementPresentAndClick(GGivesViewAll.objGrowGGivesModule, "GGives module");
+			logger.info("Navigated to GGives Page");
+			extent.extentLoggerPass("GGives", "Navigated to GGives Page");
+		} else {
+			logger.info("Failed to navigate to View All page");
+			extent.extentLoggerFail("View All", "Failed to navigate to View All page");
+		}
 	}
-	
+
 	/**
 	 * @GGives Dashboard methods
 	 * @param repaymentAmt
@@ -411,68 +322,77 @@ public class GCASHBusinessLogic extends Utilities {
 
 		if (verifyElementPresent(GGivesViewAll.objGGivesDashboardPopup, "Welcome to GGives Dashboard Popup")) {
 			click(GGivesViewAll.objGGivesDashboardpopupOkBtn, "OK Button");
-		}
 
-		suggestionTapMidScreen(GGivesViewAll.objGuideSuggestion);
+			suggestionTapMidScreen(GGivesViewAll.objGuideSuggestion);
 
-		String loanAccountNumber = getText(GGivesViewAll.objLoanAccountNumber);
-		logger.info("LOAN ACCOUNT NO. " + loanAccountNumber);
-		extent.extentLogger("Loan Account no", "LOAN ACCOUNT NO. " + loanAccountNumber);
+			String loanAccountNumber = getText(GGivesViewAll.objLoanAccountNumber);
+			logger.info("LOAN ACCOUNT NO. " + loanAccountNumber);
+			extent.extentLogger("Loan Account no", "LOAN ACCOUNT NO. " + loanAccountNumber);
 
-		String interestRate = getText(GGivesViewAll.objInterestRate);
-		logger.info("Interest Rate " + interestRate);
-		extent.extentLogger("Interest rate", "INTEREST RATE " + interestRate);
+			String interestRate = getText(GGivesViewAll.objInterestRate);
+			logger.info("Interest Rate " + interestRate);
+			extent.extentLogger("Interest rate", "INTEREST RATE " + interestRate);
 
-		String dueAmount = getText(GGivesViewAll.objDueAmount);
-		float dueAmt = Float.parseFloat(dueAmount);
+			String dueAmount = getText(GGivesViewAll.objDueAmount);
+			String[] splits = dueAmount.split(",");
+			String balanceBeforeCommas = splits[0];
+			String afterCommas = splits[1];
+			
+			String dueBalance = balanceBeforeCommas + afterCommas;
+			float dueBalanceToFloat = Float.parseFloat(dueBalance);
+			String dueBalanceToString = Float.toString(dueBalanceToFloat);
+			float dueAmt = Float.parseFloat(dueBalanceToString);
+			
+			
+			click(GGivesViewAll.objPayForGivesBtn, "Pay For GGives Button");
 
-		click(GGivesViewAll.objPayForGivesBtn, "Pay For GGives Button");
+			if (verifyElementPresent(GGivesViewAll.objEnterAmtPopup, "Paano bayaran ang GGives? Popup")) {
+				click(GGivesViewAll.objEnterAmtPopupOkBtn, "OK Button");
+			}
 
-		if (verifyElementPresent(GGivesViewAll.objEnterAmtPopup, "Paano bayaran ang GGives? Popup")) {
-			click(GGivesViewAll.objEnterAmtPopupOkBtn, "OK Button");
-		}
+			suggestionTapMidScreen(GGivesViewAll.objGuideSuggestion);
 
-		suggestionTapMidScreen(GGivesViewAll.objGuideSuggestion);
+			String getLoanAmtText = getText(GGivesViewAll.objGCashBal);
 
-		String getLoanAmtText = getText(GGivesViewAll.objGCashBal);
+			getLoanAmtText = getLoanAmtText.substring(18);
+			String[] split = getLoanAmtText.split(",");
+			String balanceBeforeComma = split[0];
+			String afterComma = split[1];
 
-		getLoanAmtText = getLoanAmtText.substring(18);
-		String[] split = getLoanAmtText.split(",");
-		String balanceBeforeComma = split[0];
-		String afterComma = split[1];
+			String amountBalance = balanceBeforeComma + afterComma;
+			float amoutBalanceToFloat = Float.parseFloat(amountBalance);
+			amoutBalanceToFloat = amoutBalanceToFloat + 100;
+			String amoutBalanceToString = Float.toString(amoutBalanceToFloat);
 
-		String amountBalance = balanceBeforeComma + afterComma;
-		float amoutBalanceToFloat = Float.parseFloat(amountBalance);
-		amoutBalanceToFloat = amoutBalanceToFloat + 100;
-		String amoutBalanceToString = Float.toString(amoutBalanceToFloat);
-
-		click(GGivesViewAll.objEnterAmt, "Enter Amount Text Field");
-		type(GGivesViewAll.objEnterAmt, amoutBalanceToString, "Amount Field");
-
-		explicitWaitVisibility(GGivesViewAll.objGcashErrorMsg, 10);
-		String outstatndingBalanceErrorMsg = getText(GGivesViewAll.objGcashErrorMsg);
-		if (verifyElementPresent(GGivesViewAll.objGcashErrorMsg, outstatndingBalanceErrorMsg)) {
 			click(GGivesViewAll.objEnterAmt, "Enter Amount Text Field");
-			androidClearText(GGivesViewAll.objEnterAmt, "Enter Amount Text Field");
-			waitTime(2000);
-			type(GGivesViewAll.objEnterAmt, repaymentAmt, "Amount Field");
-			amtText = getText(GGivesViewAll.objEnterAmt);
-		}
+			type(GGivesViewAll.objEnterAmt, amoutBalanceToString, "Amount Field");
 
-		availableAmt = getText(GGivesViewAll.objGcashAvailableBalance);
-		availableAmt = availableAmt.substring(availableAmt.lastIndexOf(":") + 2);
+			explicitWaitVisibility(GGivesViewAll.objGcashErrorMsg, 10);
+			String outstatndingBalanceErrorMsg = getText(GGivesViewAll.objGcashErrorMsg);
+			if (verifyElementPresent(GGivesViewAll.objGcashErrorMsg, outstatndingBalanceErrorMsg)) {
+				click(GGivesViewAll.objEnterAmt, "Enter Amount Text Field");
+				androidClearText(GGivesViewAll.objEnterAmt, "Enter Amount Text Field");
+				waitTime(2000);
+				type(GGivesViewAll.objEnterAmt, repaymentAmt, "Amount Field");
+				amtText = getText(GGivesViewAll.objEnterAmt);
+			}
 
-		if (dueAmt > 0) {
-			click(GGivesViewAll.objPaymentDueOptionBtn, "Pay amount due level");
-		} else {
-			click(GGivesViewAll.objPayInGives, "Pay in Gives(half of due) level");
+			availableAmt = getText(GGivesViewAll.objGcashAvailableBalance);
+			availableAmt = availableAmt.substring(availableAmt.lastIndexOf(":") + 2);
+
+			if (dueAmt > 0) {
+				click(GGivesViewAll.objPaymentDueOptionBtn, "Pay amount due level");
+				androidClearText(GGivesViewAll.objEnterAmt, "Enter Amount Text Field");
+				type(GGivesViewAll.objEnterAmt, repaymentAmt, "Amount Field");
+			} else {
+				click(GGivesViewAll.objPayInGives, "Pay in Gives(half of due) level");
+				verifyElementPresentAndClick(GGivesViewAll.objPayInGivesPopup, "Pay in Gives. Popup");
+			}
+
+			hideKeyboard();
+			explicitWaitVisibility(GGivesViewAll.objLoanACNextBtn, 10);
+			click(GGivesViewAll.objLoanACNextBtn, "NEXT Button");
 		}
-		if (verifyElementPresent(GGivesViewAll.objPayInGivesPopup, "Pay in Gives. Popup")) {
-			click(GGivesViewAll.objPayInGivesPopupOkBtn, "OK Button");
-		}
-		hideKeyboard();
-		explicitWaitVisibility(GGivesViewAll.objLoanACNextBtn, 10);
-		click(GGivesViewAll.objLoanACNextBtn, "NEXT Button");
 	}
 
 	/**
@@ -482,25 +402,26 @@ public class GCASHBusinessLogic extends Utilities {
 	public void gGivesDues() throws Exception {
 		extent.HeaderChildNode("GGives Dues");
 
-		explicitWaitVisibility(GGivesDues.objgGivesDuesBanner, 10);
-		String bannerText = getText(GGivesDues.objgGivesDuesBanner);
-		if (verifyElementPresent(GGivesDues.objgGivesDuesBanner, bannerText)) {
+		if (verifyElementDisplayed(GGivesDues.objgGivesDuesBanner)) {
 			logger.info("Navigated to GGives Dues payment Page");
 			extent.extentLoggerPass("GGives Dues", "Navigated to GGives Dues Payment Page");
+
+			String availableGcashBalance = getText(GGivesDues.objAvailableGcashBal);
+			Assert.assertEquals(availableAmt, availableGcashBalance);
+			logger.info("GCash Avaiable Balance " + availableGcashBalance);
+			extent.extentLoggerPass("GCash Balance", "GCash Avaiable Balance " + availableGcashBalance);
+
+			youAreAboutToPay = getText(GGivesDues.objTotalAmt);
+			youAreAboutToPay = youAreAboutToPay.substring(4);
+			Assert.assertEquals(amtText, youAreAboutToPay);
+			logger.info("Total Amount " + youAreAboutToPay);
+			extent.extentLoggerPass("Total Amount", "Total Amount " + youAreAboutToPay);
+
+			click(GGivesDues.objPayPhpBtn, "PAY " + youAreAboutToPay);
+		} else {
+			logger.info("Failed to navigate to GGives Due Page");
+			extent.extentLoggerFail("Due Page", "Failed to navigate to GGives Due Page");
 		}
-
-		String availableGcashBalance = getText(GGivesDues.objAvailableGcashBal);
-		Assert.assertEquals(availableAmt, availableGcashBalance);
-		logger.info("GCash Avaiable Balance " + availableGcashBalance);
-		extent.extentLoggerPass("GCash Balance", "GCash Avaiable Balance " + availableGcashBalance);
-
-		youAreAboutToPay = getText(GGivesDues.objTotalAmt);
-		youAreAboutToPay = youAreAboutToPay.substring(4);
-		Assert.assertEquals(amtText, youAreAboutToPay);
-		logger.info("Total Amount " + youAreAboutToPay);
-		extent.extentLoggerPass("Total Amount", "Total Amount " + youAreAboutToPay);
-
-		click(GGivesDues.objPayPhpBtn, "PAY " + youAreAboutToPay);
 	}
 
 	/**
@@ -508,10 +429,10 @@ public class GCASHBusinessLogic extends Utilities {
 	 * @throws Exception
 	 */
 	public void gGivesPaymentSuccess() throws Exception {
-		extent.HeaderChildNode("GGives Payment Mesage");
+		extent.HeaderChildNode("GGives Payment Message");
 
-		String gGivesheaderText = getText(GGivesPaymentPage.objGGivesPaymentHeader);
-		if (verifyElementPresent(GGivesPaymentPage.objGGivesPaymentHeader, gGivesheaderText)) {
+		if (verifyElementPresent(GGivesPaymentPage.objGGivesPaymentHeader, "GGives Payment")) {
+			String gGivesheaderText = getText(GGivesPaymentPage.objGGivesPaymentHeader);
 			Assert.assertEquals(gGivesheaderText, "GGives Payment");
 
 			String refText = getText(GGivesPaymentPage.objGGivesReferenceText);
@@ -522,10 +443,8 @@ public class GCASHBusinessLogic extends Utilities {
 			String successfullPaidTet = getText(GGivesPaymentPage.objGGivesSuccessfulPaidText);
 			String successfullPaidForGGivesTitle = getText(GGivesPaymentPage.objPaidForGGivesTitle);
 
-			logger.info(
-					successfullPaidTet + " " + successfullPaidForGGivesTitle);
-			extent.extentLogger("Success Msg",
-					successfullPaidTet + " " + successfullPaidForGGivesTitle);
+			logger.info(successfullPaidTet + " " + successfullPaidForGGivesTitle);
+			extent.extentLogger("Success Msg", successfullPaidTet + " " + successfullPaidForGGivesTitle);
 
 			String amountPaid = getText(GGivesPaymentPage.objAmountPaid);
 			Assert.assertEquals(amountPaid, youAreAboutToPay);
@@ -542,15 +461,6 @@ public class GCASHBusinessLogic extends Utilities {
 
 			click(GGivesPaymentPage.objCrossBtn, "Cross Button");
 
-			String homeHeaderText = getText(GGivesHomePage.objHomePageHeader);
-			if (verifyElementPresent(GGivesHomePage.objHomePageHeader, homeHeaderText)) {
-				Assert.assertEquals(homeHeaderText, "Hello!");
-				logger.info("Navigated to HomePage");
-				extent.extentLoggerPass("HomePage", "Navigated to HomePage");
-			} else {
-				logger.info("Failed to navigate to HomePage");
-				extent.extentLoggerFail("HomePage", "Failed to navigate to HomePage");
-			}
 		} else {
 			logger.info("Failed to navigate to GGives Payment Page");
 			extent.extentLoggerFail("GGives Payment", "Failed to navigate to GGives Payment Page");
@@ -563,58 +473,60 @@ public class GCASHBusinessLogic extends Utilities {
 	 */
 	public void gCashLogout() throws Exception {
 		extent.HeaderChildNode("logout");
-		click(GCash_GSave.objProfileIcon, "Profile Icon");
 
-		String profileNum = getText(GCash_GSave.objPhoneNo);
-		profileNum = profileNum.substring(1);
-		logger.info("Registered Mobile No " + profileNum);
-		extent.extentLoggerPass("Register No", "Registered Mobile No " + profileNum);
-		Swipe("up", 1);
-		click(GCash_GSave.objLogout, "Log Out");
+		if (verifyElementPresent(GGivesHomePage.objHomePageHeader, "Hello! HomePage")) {
+			String homeHeaderText = getText(GGivesHomePage.objHomePageHeader);
+			Assert.assertEquals(homeHeaderText, "Hello!");
+			logger.info("Navigated to HomePage");
+			extent.extentLoggerPass("HomePage", "Navigated to HomePage");
+			click(GCash_GSave.objProfileIcon, "Profile Icon");
 
-		if (verifyElementPresent(GCash_GSave.objLogoutPopup, "Log out Popup Message")) {
-			click(GCash_GSave.objOkBtns, "OK Button");
+			String profileNum = getText(GCash_GSave.objPhoneNo);
+			profileNum = profileNum.substring(1);
+			logger.info("Registered Mobile No " + profileNum);
+			extent.extentLoggerPass("Register No", "Registered Mobile No " + profileNum);
+			Swipe("up", 1);
+			click(GCash_GSave.objLogout, "Log Out");
+
+			if (verifyElementPresent(GCash_GSave.objLogoutPopup, "Log out Popup Message")) {
+				click(GCash_GSave.objOkBtns, "OK Button");
+			}
+		} else {
+			logger.info("Failed to navigate to HomePage");
+			extent.extentLoggerFail("HomePage", "Failed to navigate to HomePage");
 		}
 	}
 
 	/**
 	 * GSave Login method
+	 * 
 	 * @param validNo
 	 * @throws Exception
 	 */
-	public void GsaveLogin(String validNo , String GSaveValidOTP) throws Exception {
+	public void GsaveLogin(String validNo, String GSaveValidOTP) throws Exception {
 		extent.HeaderChildNode("GSave");
-		String MPINPage = getText(GGivesLoginPage.objMpinPageVerify);
-		if (verifyElementPresent(GGivesLoginPage.objMpinPageVerify, MPINPage + " Page")) {
-			Assert.assertEquals("Enter your MPIN", MPINPage);
 
+		if (verifyElementPresent(GGivesLoginPage.objMpinPageVerify, "MPIN Page")) {
+			String MPINPage = getText(GGivesLoginPage.objMpinPageVerify);
+			Assert.assertEquals("Enter your MPIN", MPINPage);
 			click(GGivesLoginPage.objChangeNumber, "Change Number");
 			verifyElementPresent(GGivesLoginPage.objOopsPopup, "Oops! popup");
 			click(GGivesLoginPage.objYesBtn, "Yes Button");
 			logger.info("Navigated to Enter Mobile Number Page");
 			extent.extentLoggerPass("Mobile Number Page", "Navigated to Enter Mobile Number Page");
 
-		} else {
-			logger.info("Failed to Navigate to Enter Mobile Number Page");
-			extent.extentLogger("Mobile Number Page", "Failed to Navigate to Enter Mobile Number Page");
-		}
-
-		if (verifyElementDisplayed(GGivesLoginPage.objGCashLogo)) {
+			verifyElementDisplayed(GGivesLoginPage.objGCashLogo);
 			type(GGivesLoginPage.objMobileNumberField, validNo, "Mobile Number text Field");
 			profileNo = getText(GGivesLoginPage.objMobileNumberField);
 
 			click(GGivesLoginPage.objNextBtn, "Next Button");
 			logger.info("Navigated to OTP Authentication Page");
 			extent.extentLoggerPass("OTP Authentication Page", "Navigated to GCash OTP Authentication Page");
-		} else {
-			logger.info("Failed to Navigate to OTP Authentication Page");
-			extent.extentLoggerFail("OTP Authentication Page", "Failed to Navigate to GCash OTP Authentication Page");
-		}
 
-		explicitWaitVisibility(GGivesLoginPage.objAuthenticationPageVerify, 20);
-		if (verifyElementPresent(GGivesLoginPage.objAuthenticationPageVerify, "OTP Authentication Page")) {
-			type(GGivesLoginPage.objOTPField, GSaveValidOTP, "OTP Field");
-			click(GGivesLoginPage.objSubmitBtn, "Submit Button");
+			explicitWaitVisibility(GGivesLoginPage.objAuthenticationPageVerify, 20);
+			if (verifyElementPresent(GGivesLoginPage.objAuthenticationPageVerify, "OTP Authentication Page")) {
+				type(GGivesLoginPage.objOTPField, GSaveValidOTP, "OTP Field");
+				click(GGivesLoginPage.objSubmitBtn, "Submit Button");
 				logger.info("Navigated to MPIN Page");
 				extent.extentLoggerPass("MPIN Page", "Navigated to MPIN Page");
 			} else {
@@ -622,25 +534,31 @@ public class GCASHBusinessLogic extends Utilities {
 				extent.extentLogger("MPIN Page", "Failed to Navigate to MPIN Page");
 			}
 
-		if (verifyElementPresent(GGivesLoginPage.objMpinPageVerify, MPINPage + " Page")) {
-			Assert.assertEquals("Enter your MPIN", MPINPage);
-			click(GGivesLoginPage.objOneBtn, "1");
-			click(GGivesLoginPage.objTwoBtn, "2");
-			click(GGivesLoginPage.objOneBtn, "1");
-			click(GGivesLoginPage.objTwoBtn, "2");
-		}
-		if (verifyElementPresent(GGivesHomePage.objDiscoverPopup, "Discover popup")) {
-			logger.info("Navigated to Home Page");
-			extent.extentLoggerPass("HomePage", "Navigated to Home Page");
-			click(GGivesHomePage.objDiscoverBtn, "Discover Button");
+			if (verifyElementPresent(GGivesLoginPage.objMpinPageVerify, "MPIN Page")) {
+				String MPINPages = getText(GGivesLoginPage.objMpinPageVerify);
+				Assert.assertEquals("Enter your MPIN", MPINPages);
+				click(GGivesLoginPage.objOneBtn, "1");
+				click(GGivesLoginPage.objTwoBtn, "2");
+				click(GGivesLoginPage.objOneBtn, "1");
+				click(GGivesLoginPage.objTwoBtn, "2");
+			}
+			if (verifyElementPresent(GGivesHomePage.objDiscoverPopup, "Discover popup")) {
+				logger.info("Navigated to Home Page");
+				extent.extentLoggerPass("HomePage", "Navigated to Home Page");
+				click(GGivesHomePage.objDiscoverBtn, "Discover Button");
 
-			suggestionTapMidScreen(GGivesHomePage.objTourMsg);
+				suggestionTapMidScreen(GGivesHomePage.objTourMsg);
 
-			String homeHeaderText = getText(GGivesHomePage.objHomePageHeader);
-			Assert.assertEquals(homeHeaderText, "Hello!");
+				String homeHeaderText = getText(GGivesHomePage.objHomePageHeader);
+				Assert.assertEquals(homeHeaderText, "Hello!");
+				click(GCash_GSave.objGsaveTab, "GSave Tab");
+			} else {
+				logger.info("Failed to Navigate to Home Page");
+				extent.extentLoggerFail("HomePage", "Failed to Navigate to Home Page");
+			}
 		} else {
-			logger.info("Failed to Navigate to Home Page");
-			extent.extentLoggerFail("HomePage", "Failed to Navigate to Home Page");
+			logger.info("Failed to Navigate to Enter Mobile Number Page");
+			extent.extentLoggerFail("Mobile Number Page", "Failed to Navigate to Enter Mobile Number Page");
 		}
 	}
 
@@ -650,78 +568,74 @@ public class GCASHBusinessLogic extends Utilities {
 	 */
 	public void GsaveTransaction(String amtPay) throws Exception {
 		extent.HeaderChildNode("GSave Transaction");
-		click(GCash_GSave.objGsaveTab, "GSave Tab");
+
 		explicitWaitVisibility(GCash_GSave.objWelcomePage, 20);
 		if (verifyIsElementDisplayed(GCash_GSave.objWelcomePage, "Welcome to Gsave Marketplace!")) {
-			int nextButton = 1;
-			for (int i = 0; i < nextButton; i++) {
-				click(GCash_GSave.objNextBtn, "Next Button");
-				waitTime(2000);
-				if (verifyElementDisplayed(GCash_GSave.objNextBtn)) {
-					nextButton++;
-				} else {
-					break;
-				}
+
+			for (int i = 0; i < 3; i++) {
+				explicitWaitVisibility(GCash_GSave.objNextBtn, 10);
+				verifyElementPresentAndClick(GCash_GSave.objNextBtn, "Next Button");
 			}
 			suggestionTapMidScreen(GCash_GSave.objOurPartnerBankTour);
 			logger.info("Navigated to Gsave MarketPlace Page");
 			extent.extentLoggerPass("Gsave MarketPlace", "Navigated to Gsave MarketPlace Page");
-		}
-		if (verifyIsElementDisplayed(GCash_GSave.objGsavemarketPlace, "Gsave MarketPlace Page")) {
-			click(GCash_GSave.objGsave_CIMB, "CIMB Button");
+
+			verifyIsElementDisplayed(GCash_GSave.objGsavemarketPlace, "Gsave MarketPlace Page");
+			verifyElementPresentAndClick(GCash_GSave.objGsave_CIMB, "CIMB Button");
 			logger.info("Navigated to My Savings Account Page");
 			extent.extentLoggerPass("Account Page", "Navigated to My Savings Account Page");
-		}
-		explicitWaitVisibility(GCash_GSave.objMySavingAcc, 10);
-		if (verifyIsElementDisplayed(GCash_GSave.objMySavingAcc, "My Savings Account Page")) {
-			suggestionTapMidScreen(GCash_GSave.objMyPiggyBankTour);
 
-			totalSavingBalance = getText(GCash_GSave.objTotalSavingBalance);
-			logger.info("Total Saving Balance is " + totalSavingBalance);
-			extent.extentLogger("Balance", "Total Saving Balance is " + totalSavingBalance);
+			explicitWaitVisibility(GCash_GSave.objMySavingAcc, 10);
+			if (verifyIsElementDisplayed(GCash_GSave.objMySavingAcc, "My Savings Account Page")) {
+				suggestionTapMidScreen(GCash_GSave.objMyPiggyBankTour);
 
-			String accountNo = getText(GCash_GSave.objAccountNo);
-			logger.info("Account No. " + accountNo);
-			extent.extentLogger("Account No.", "Account No. " + accountNo);
+				totalSavingBalance = getText(GCash_GSave.objTotalSavingBalance);
+				logger.info("Total Saving Balance is " + totalSavingBalance);
+				extent.extentLogger("Balance", "Total Saving Balance is " + totalSavingBalance);
 
-			String interestRate = getText(GCash_GSave.objInterestRate);
-			logger.info("Interest Rate " + interestRate);
-			extent.extentLogger("Interest Rate", "Interest Rate " + interestRate);
+				String accountNo = getText(GCash_GSave.objAccountNo);
+				logger.info("Account No. " + accountNo);
+				extent.extentLogger("Account No.", "Account No. " + accountNo);
 
-			click(GCash_GSave.objDepositBtn, "Deposit Button");
-			logger.info("Navigated to Deposit Page");
-			extent.extentLoggerPass("Deposit", "Navigated to Deposit Page");
-		}
-		explicitWaitVisibility(GCash_GSave.objDepositePage, 10);
-		if (verifyIsElementDisplayed(GCash_GSave.objDepositePage, "Deposit Page")) {
-			verifyElementDisplayed(GCash_GSave.objCIMBBankLogo);
+				String interestRate = getText(GCash_GSave.objInterestRate);
+				logger.info("Interest Rate " + interestRate);
+				extent.extentLogger("Interest Rate", "Interest Rate " + interestRate);
 
-			String GSaveAccountBalance = getText(GCash_GSave.objGSaveAccountBalance);
-			GSaveAccountBalance = GSaveAccountBalance.substring(4);
-			Assert.assertEquals(GSaveAccountBalance, totalSavingBalance);
-
-			String gCashText = getText(GCash_GSave.objGCashAmt);
-			gCashText = gCashText.substring(4);
-			String[] split = gCashText.split(",");
-			String balanceBeforeComma = split[0];
-			String afterComma = split[1];
-
-			String amountBalance = balanceBeforeComma + afterComma;
-			float amoutBalanceToFloat = Float.parseFloat(amountBalance);
-			amoutBalanceToFloat = amoutBalanceToFloat + 100;
-			String amoutBalanceToString = Float.toString(amoutBalanceToFloat);
-			
-			click(GCash_GSave.objNextBtn, "NEXT Button");
-			if (verifyElementPresent(GCash_GSave.objOOps, "OOPS! Popup")) {
-				click(GCash_GSave.objOkBtns, "OK Button");
+				click(GCash_GSave.objDepositBtn, "Deposit Button");
+				logger.info("Navigated to Deposit Page");
+				extent.extentLoggerPass("Deposit", "Navigated to Deposit Page");
 			}
+			explicitWaitVisibility(GCash_GSave.objDepositePage, 10);
+			if (verifyIsElementDisplayed(GCash_GSave.objDepositePage, "Deposit Page")) {
+				verifyElementDisplayed(GCash_GSave.objCIMBBankLogo);
 
-			click(GCash_GSave.objAmountTextField, "Amount Text Field");
-			waitTime(2000);
-			type(GCash_GSave.objAmountTextField, amoutBalanceToString, "Amount Text Field");
-			click(GCash_GSave.objNextBtn, "NEXT Button");
+				String GSaveAccountBalance = getText(GCash_GSave.objGSaveAccountBalance);
+				GSaveAccountBalance = GSaveAccountBalance.substring(4);
+				Assert.assertEquals(GSaveAccountBalance, totalSavingBalance);
 
-			if (verifyElementPresent(GCash_GSave.objErrorMsg, "Something went wrong. Message")) {
+				String gCashText = getText(GCash_GSave.objGCashAmt);
+				gCashText = gCashText.substring(4);
+				String[] split = gCashText.split(",");
+				String balanceBeforeComma = split[0];
+				String afterComma = split[1];
+
+				String amountBalance = balanceBeforeComma + afterComma;
+				float amoutBalanceToFloat = Float.parseFloat(amountBalance);
+				amoutBalanceToFloat = amoutBalanceToFloat + 100;
+				String amoutBalanceToString = Float.toString(amoutBalanceToFloat);
+
+				click(GCash_GSave.objNextBtn, "NEXT Button");
+				if (verifyElementPresent(GCash_GSave.objOOps, "OOPS! Popup")) {
+					click(GCash_GSave.objOkBtns, "OK Button");
+				}
+
+				click(GCash_GSave.objAmountTextField, "Amount Text Field");
+				waitTime(2000);
+				type(GCash_GSave.objAmountTextField, amoutBalanceToString, "Amount Text Field");
+				click(GCash_GSave.objNextBtn, "NEXT Button");
+
+				explicitWaitVisibility(GCash_GSave.objErrorMsg, 20);
+				verifyElementPresent(GCash_GSave.objErrorMsg, "Something went wrong. Message");
 				click(GCash_GSave.objOKBtn, "OK Button");
 				androidClearText(GCash_GSave.objAmountTextField, "Enter Amount Text Field");
 				waitTime(2000);
@@ -732,6 +646,14 @@ public class GCASHBusinessLogic extends Utilities {
 				extent.extentLoggerPass("Deposit", "Navigated to Confirmation Page");
 			}
 		}
+	}
+
+	/**
+	 * @param GSave Confirmation
+	 * @throws Exception
+	 */
+	public void gSaveConfirmTranscation() throws Exception {
+		extent.HeaderChildNode("Confirm transaction");
 
 		if (verifyElementPresent(GCash_GSave.objConfirmationPage, "Confirmation Page")) {
 			String phpAmt = getText(GCash_GSave.objAmtPhp);
@@ -742,40 +664,24 @@ public class GCASHBusinessLogic extends Utilities {
 
 			click(GCash_GSave.objConfirmBtn, "CONFIRM Button");
 		}
-		
+
 		if (verifyElementDisplayed(GCash_GSave.objDepositeSuccess)) {
 			click(GCash_GSave.objOkBtns, "OK Button");
 			logger.info("Navigated to Home Page");
 			extent.extentLoggerPass("HomePage", "Navigated to Home Page");
-			
+
 			String gSaveSuccesstext = getText(GCash_GSave.objDepositeSuccess);
-			if (verifyElementPresent(GCash_GSave.objDepositeSuccess, gSaveSuccesstext)) {
-				click(GCash_GSave.objOKBtn, "OK Button");
-				logger.info("Navigated to Home Page");
-				extent.extentLoggerPass("HomePage", "Navigated to Home Page");
-			} else {
-				logger.info("Failed to Navigate to Home Page");
-				extent.extentLoggerFail("HomePage", "Failed to Navigate to Home Page");
-			}
+			verifyElementPresent(GCash_GSave.objDepositeSuccess, gSaveSuccesstext);
+			verifyElementPresentAndClick(GCash_GSave.objOKBtn, "OK Button");
+			logger.info("Navigated to Home Page");
+			extent.extentLoggerPass("HomePage", "Navigated to Home Page");
+		} else {
+			logger.info("Failed to Navigate to Home Page");
+			extent.extentLoggerFail("HomePage", "Failed to Navigate to Home Page");
 		}
 
-		else if (verifyElementPresent(GCash_GSave.objOOps, "OOPS! Popup")) {
-			click(GCash_GSave.objOkBtns, "OK Button");
-			waitTime(3000);
-			click(GCash_GSave.objBackBtn, "Back Button");
-			waitTime(3000);
-			click(GCash_GSave.objBackBtn, "Back Button");
-			waitTime(3000);
-			click(GCash_GSave.objBackNav, "Back Button");
-			waitTime(3000);
-			click(GCash_GSave.objGSaveMarketPlaceBackBtn, "Back Button");
-			waitTime(3000);
-			click(GCash_GSave.bjMarketBack, "Back Button");
-		}
-
-		
 		String homeHeaderText = getText(GGivesHomePage.objHomePageHeader);
-		if (verifyElementPresent(GGivesHomePage.objHomePageHeader, homeHeaderText)) {
+		if (verifyElementPresent(GGivesHomePage.objHomePageHeader, homeHeaderText + " Page")) {
 			Assert.assertEquals(homeHeaderText, "Hello!");
 			logger.info(homeHeaderText + " Page is displayed");
 			extent.extentLoggerPass("HomePage", homeHeaderText + " Page is displayed");
@@ -791,5 +697,5 @@ public class GCASHBusinessLogic extends Utilities {
 			logger.info("Failed to Log Out");
 			extent.extentLoggerFail("Log Out", "Failed to Log Out");
 		}
-	}  
+	}
 }

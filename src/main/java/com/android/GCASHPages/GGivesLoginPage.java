@@ -15,29 +15,29 @@ public class GGivesLoginPage {
 	public static By objPicturePopup = By.xpath("//*[@text='Allow GCash UAT to take pictures and record video?']");
 
 	// Allow Picture popup Don't Allow
-	public static By objPictureDontAllowBtn = By.id("com.android.permissioncontroller:id/permission_deny_button");
+	public static By objPictureDontAllowBtn = By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_deny_button']");
 
 	// Location allow popup
 	public static By objLocationPopup = By.xpath("//*[@text='Allow GCash UAT to access this device’s location?']");
 
 	// Allow location popup Don't Allow
-	public static By objLocationDontAllowBtn = By.id("com.android.permissioncontroller:id/permission_deny_button");
+	public static By objLocationDontAllowBtn = By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_deny_button']");
 	
 	// Allow location popup Don't Allow
-	public static By objRequestLocationDontAllowBtn = By.id("com.android.permissioncontroller:id/permission_deny_and_dont_ask_again_button");
+	public static By objRequestLocationDontAllowBtn = By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_deny_and_dont_ask_again_button']");
 
 	// contact allow popup
 	public static By objContactPopup = By.xpath("//*[@text='Allow GCash UAT to access your contacts?']");
 
 	// Allow contact popup Don't Allow
-	public static By objContactDontAllowBtn = By.id("com.android.permissioncontroller:id/permission_deny_button");
+	public static By objContactDontAllowBtn = By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_deny_button']");
 
 	// photo media allow popup
 	public static By objPhotoPopup = By
 			.xpath("//*[@text='Allow GCash UAT to access photos and media on your device?']");
 
 	// Allow photo media popup Don't Allow
-	public static By objPhotoDontAllowBtn = By.id("com.android.permissioncontroller:id/permission_deny_button");
+	public static By objPhotoDontAllowBtn = By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_deny_button']");
 
 	// Welcome page verify
 	public static By objWelcomePageVerify = By.xpath("//*[@text='Welcome to GCash']");
@@ -47,29 +47,29 @@ public class GGivesLoginPage {
 	public static By objLoginBtn = By.xpath("//*[@text='LOG IN']");
 
 	// GCASH mobile registration Logo
-	public static By objGCashLogo = By.id("com.globe.gcash.android.uat.tokyo:id/gcash");
+	public static By objGCashLogo = By.xpath("//*[@resource-id='com.globe.gcash.android.uat.tokyo:id/gcash']");
 
 	// mobile number field
-	public static By objMobileNumberField = By.id("com.globe.gcash.android.uat.tokyo:id/txt_msisdn");
+	public static By objMobileNumberField = By.xpath("//*[@resource-id='com.globe.gcash.android.uat.tokyo:id/txt_msisdn']");
 
 	// Click Next button
 	public static By objNextBtn = By.xpath("//*[@text='NEXT']");
 	
 	//Something Went wrong
-	public static By objWrongPopup = By.id("com.globe.gcash.android.uat.tokyo:id/alertTitle");
+	public static By objWrongPopup = By.xpath("//*[@resource-id='com.globe.gcash.android.uat.tokyo:id/alertTitle']");
 	
 	//Later button
-	public static By objLaterBtns = By.id("android:id/button2");
+	public static By objLaterBtns = By.xpath("//*[@resource-id='android:id/button2']");
 //	-------------------------------------------------------------------------------------------------------------------
 
 	// Authentication page verify
 	public static By objAuthenticationPageVerify = By.xpath("//*[@text='Authentication']");
 
 	// OTP tex field
-	public static By objOTPField = By.id("com.globe.gcash.android.uat.tokyo:id/txt_code");
+	public static By objOTPField = By.xpath("//*[@resource-id='com.globe.gcash.android.uat.tokyo:id/txt_code']");
 
 	// Submit page
-	public static By objSubmitBtn = By.id("com.globe.gcash.android.uat.tokyo:id/btn_submit");
+	public static By objSubmitBtn = By.xpath("//*[@resource-id='com.globe.gcash.android.uat.tokyo:id/btn_submit']");
 //	----------------------------------------------------------------------------------------------------------------------
 
 	// Alert popup
